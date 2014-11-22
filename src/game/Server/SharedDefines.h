@@ -2760,6 +2760,12 @@ enum TeleportLocation
     TELEPORT_LOCATION_BG_ENTRY_POINT    = 1,
 };
 
+enum TeleportLocation
+{
+    TELEPORT_LOCATION_HOMEBIND          = 0,
+    TELEPORT_LOCATION_BG_ENTRY_POINT    = 1,
+};
+
 /**
  * Some statuses that can be sent with the \ref OpcodesList::SMSG_GM_TICKET_STATUS_UPDATE opcode
  * to change what the client is currently showing about your open ticket.
