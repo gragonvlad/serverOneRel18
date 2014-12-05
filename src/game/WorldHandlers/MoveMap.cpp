@@ -294,7 +294,8 @@ namespace MMAP
         {
             uint32 x = (i->first >> 16);
             uint32 y = (i->first & 0x0000FFFF);
-            if (dtStatusFailed(mmap->navMesh->removeTile(i->second, NULL, NULL)))
+            dtStatus dtResult = mmap->navMesh->removeTile(i->second, NULL, NULL);
+            if (dtStatusFailed(dtResult))
                 { sLog.outError("MMAP:unloadMap: Could not unload %03u%02i%02i.mmtile from navmesh", mapId, x, y); }
             else
             {
