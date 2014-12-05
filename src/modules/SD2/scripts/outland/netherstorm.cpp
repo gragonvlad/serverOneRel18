@@ -1181,7 +1181,7 @@ enum
     MAX_IMPS                = 6,
 };
 
-struct MANGOS_DLL_DECL npc_drijyaAI : public npc_escortAI
+struct npc_drijyaAI : public npc_escortAI
 {
     npc_drijyaAI(Creature* pCreature) : npc_escortAI(pCreature) { Reset(); }
 

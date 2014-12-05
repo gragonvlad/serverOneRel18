@@ -432,7 +432,9 @@ bool ProcessEventId_npc_kroshius(uint32 uiEventId, Object* pSource, Object* /*pT
             if (Creature* pKroshius = GetClosestCreatureWithEntry((Player*)pSource, NPC_KROSHIUS, 20.0f))
             {
                 if (npc_kroshiusAI* pKroshiusAI = dynamic_cast<npc_kroshiusAI*>(pKroshius->AI()))
+                {
                     pKroshiusAI->DoRevive((Player*)pSource);
+                }
             }
         }
 
@@ -470,7 +472,7 @@ enum
     GO_ARKONARIN_CAGE               = 176306,
 };
 
-struct MANGOS_DLL_DECL npc_captured_arkonarinAI : public npc_escortAI
+struct npc_captured_arkonarinAI : public npc_escortAI
 {
     npc_captured_arkonarinAI(Creature* pCreature) : npc_escortAI(pCreature) { Reset(); }
 
@@ -664,7 +666,7 @@ static const DialogueEntry aEpilogDialogue[] =
     {0, 0, 0},
 };
 
-struct MANGOS_DLL_DECL npc_areiAI : public npc_escortAI, private DialogueHelper
+struct npc_areiAI : public npc_escortAI, private DialogueHelper
 {
     npc_areiAI(Creature* pCreature) : npc_escortAI(pCreature),
         DialogueHelper(aEpilogDialogue)

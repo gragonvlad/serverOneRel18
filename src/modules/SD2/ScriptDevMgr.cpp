@@ -224,8 +224,10 @@ void Script::RegisterSelf(bool bReportError)
 
 void SD2::FreeScriptLibrary()
 {
+    // Free Spell Summary
     delete []SpellSummary;
-
+        
+    // Free resources before library unload
     for (SDScriptVec::const_iterator itr = m_scripts.begin(); itr != m_scripts.end(); ++itr)
     {
         delete *itr;
@@ -234,14 +236,18 @@ void SD2::FreeScriptLibrary()
     num_sc_scripts = 0;
     setScriptLibraryErrorFile(NULL, NULL);
 }
+
 void SD2::InitScriptLibrary()
 {
+    // ScriptDev2 startup
     outstring_log("  ___         _      _   ___          ___ ");
     outstring_log(" / __| __ _ _(_)_ __| |_|   \\ _____ _|_  )");
     outstring_log(" \\__ \\/ _| '_| | '_ \\  _| |) / -_) V // / ");
     outstring_log(" |___/\\__|_| |_| .__/\\__|___/\\___|\\_//___|");
     outstring_log("               |_|                        ");
     outstring_log("                    http://scriptdev2.com/\n");
+        
+    // Get configuration file
     bool configFailure = false;
     if (!SD2Config.SetSource(MANGOSD_CONFIG_LOCATION))
     {
@@ -251,24 +257,34 @@ void SD2::InitScriptLibrary()
     {
         outstring_log("SD2: Using configuration file %s", MANGOSD_CONFIG_LOCATION);
     }
+        
+    // Set SD2 Error Log File
     std::string sd2LogFile = SD2Config.GetStringDefault("SD2ErrorLogFile", "scriptdev2-errors.log");
     setScriptLibraryErrorFile(sd2LogFile.c_str(), "SD2");
     if (configFailure)
     {
         script_error_log("Unable to open configuration file. Database will be unaccessible. Configuration values will use default.");
     }
+        
+    // Check config file version
     if (SD2Config.GetIntDefault("ConfVersion", 0) != MANGOSD_CONFIG_VERSION)
     {
         script_error_log("Configuration file version doesn't match expected version. Some config variables may be wrong or missing.");
     }
     outstring_log("\n");
+        
+    // Load database (must be called after SD2Config.SetSource).
     LoadDatabase();
     outstring_log("SD2: Loading C++ scripts");
     BarGoLink bar(1);
     bar.step();
+        
+    // Resize script ids to needed ammount of assigned ScriptNames (from core)
     m_scripts.resize(GetScriptIdsCount(), NULL);
     FillSpellSummary();
     AddScripts();
+        
+    // Check existance scripts for all registered by core script names
     for (uint32 i = 1; i < GetScriptIdsCount(); ++i)
     {
         if (!m_scripts[i])
@@ -278,6 +294,7 @@ void SD2::InitScriptLibrary()
     }
     outstring_log(">> Loaded %i C++ Scripts.", num_sc_scripts);
 }
+    
 char const* SD2::GetScriptLibraryVersion()
 {
     return strSD2Version.c_str();

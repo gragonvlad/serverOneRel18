@@ -423,8 +423,10 @@ struct npc_keeper_remulosAI : public npc_escortAI, private DialogueHelper
     {
         switch (uiEntry)
         {
-            case NPC_REMULOS:         return m_creature;
-            case NPC_ERANIKUS_TYRANT: return m_creature->GetMap()->GetCreature(m_eranikusGuid);
+            case NPC_REMULOS:
+                return m_creature;
+            case NPC_ERANIKUS_TYRANT:
+                return m_creature->GetMap()->GetCreature(m_eranikusGuid);
 
             default:
                 return NULL;
@@ -566,9 +568,15 @@ struct npc_keeper_remulosAI : public npc_escortAI, private DialogueHelper
             {
                 switch (urand(0, 2))
                 {
-                    case 0: DoCastSpellIfCan(pTarget, SPELL_HEALING_TOUCH); break;
-                    case 1: DoCastSpellIfCan(pTarget, SPELL_REJUVENATION);  break;
-                    case 2: DoCastSpellIfCan(pTarget, SPELL_REGROWTH);      break;
+                    case 0:
+                        DoCastSpellIfCan(pTarget, SPELL_HEALING_TOUCH);
+                        break;
+                    case 1:
+                        DoCastSpellIfCan(pTarget, SPELL_REJUVENATION);
+                        break;
+                    case 2:
+                        DoCastSpellIfCan(pTarget, SPELL_REGROWTH);
+                        break;
                 }
             }
             m_uiHealTimer = 10000;

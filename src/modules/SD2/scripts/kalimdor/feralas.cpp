@@ -182,7 +182,7 @@ bool GOUse_go_gordunni_trap(Player* pPlayer, GameObject* pGo)
 }
 
 /*######
-## AddSC
+## npc_shay_leafrunner
 ######*/
 
 enum
@@ -204,7 +204,7 @@ enum
     QUEST_ID_WANDERING_SHAY             = 2845,
 };
 
-struct MANGOS_DLL_DECL npc_shay_leafrunnerAI : public FollowerAI
+struct npc_shay_leafrunnerAI : public FollowerAI
 {
     npc_shay_leafrunnerAI(Creature* pCreature) : FollowerAI(pCreature)
     {

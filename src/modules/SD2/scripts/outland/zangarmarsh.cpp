@@ -207,7 +207,7 @@ enum
     QUEST_ID_FHWOOR_SMASH       = 9729,
 };
 
-struct MANGOS_DLL_DECL npc_fhwoorAI : public npc_escortAI
+struct npc_fhwoorAI : public npc_escortAI
 {
     npc_fhwoorAI(Creature* pCreature) : npc_escortAI(pCreature) { Reset(); }
 
