@@ -91,6 +91,7 @@ inline bool IsEventFlagsFitForNormalMap(uint8 eFlags)
 CreatureEventAI::CreatureEventAI(Creature* c) : CreatureAI(c),
     m_Phase(0),
     m_MeleeEnabled(true),
+    m_HasOOCLoSEvent(false),
     m_InvinceabilityHpLevel(0),
     m_throwAIEventMask(0),
     m_throwAIEventStep(0)
@@ -1272,7 +1273,7 @@ void CreatureEventAI::MoveInLineOfSight(Unit* who)
         { return; }
 
     // Check for OOC LOS Event
-    if (!m_creature->getVictim())
+    if (m_HasOOCLoSEvent && !m_creature->getVictim())
     {
         for (CreatureEventAIList::iterator itr = m_CreatureEventAIList.begin(); itr != m_CreatureEventAIList.end(); ++itr)
         {
@@ -1281,12 +1282,12 @@ void CreatureEventAI::MoveInLineOfSight(Unit* who)
                 // can trigger if closer than fMaxAllowedRange
                 float fMaxAllowedRange = (float)itr->Event.ooc_los.maxRange;
 
-                // if range is ok and we are actually in LOS
-                if (m_creature->IsWithinDistInMap(who, fMaxAllowedRange) && m_creature->IsWithinLOSInMap(who))
+                // if friendly event && who is not hostile OR hostile event && who is hostile
+                if ((itr->Event.ooc_los.noHostile && !m_creature->IsHostileTo(who)) ||
+                    ((!itr->Event.ooc_los.noHostile) && m_creature->IsHostileTo(who)))
                 {
-                    // if friendly event&&who is not hostile OR hostile event&&who is hostile
-                    if ((itr->Event.ooc_los.noHostile && !m_creature->IsHostileTo(who)) ||
-                        ((!itr->Event.ooc_los.noHostile) && m_creature->IsHostileTo(who)))
+                    // if range is ok and we are actually in LOS
+                    if (m_creature->IsWithinDistInMap(who, fMaxAllowedRange) && m_creature->IsWithinLOSInMap(who))
                         { ProcessEvent(*itr, who); }
                 }
             }
