@@ -3,7 +3,7 @@
 ################################################################################
 
 [MangosdConf]
-ConfVersion=2014060701
+ConfVersion=2015010201
 
 ################################################################################
 # CONNECTIONS AND DIRECTORIES
@@ -757,6 +757,7 @@ SD2ErrorLogFile             = "scriptdev2-errors.log"
 
 GameType                                  = 1
 RealmZone                                 = 1
+Expansion                                 = 1
 DBC.Locale                                = 255
 DeclinedNames                             = 0
 StrictPlayerNames                         = 0
@@ -1186,7 +1187,7 @@ GM.InvisibleAura   = 31748
 Visibility.GroupMode               = 0
 Visibility.Distance.Continents     = 90
 Visibility.Distance.Instances      = 120
-Visibility.Distance.BG             = 180
+Visibility.Distance.BGArenas       = 180
 Visibility.Distance.InFlight       = 100
 Visibility.Distance.Grey.Unit      = 1
 Visibility.Distance.Grey.Object    = 10
@@ -1413,7 +1414,7 @@ Death.SicknessLevel               = 11
 Death.CorpseReclaimDelay.PvP      = 1
 Death.CorpseReclaimDelay.PvE      = 1
 Death.Bones.World                 = 1
-Death.Bones.Battleground          = 1
+Death.Bones.BattlegroundOrArena   = 1
 Death.Ghost.RunSpeed.World        = 1.0
 Death.Ghost.RunSpeed.Battleground = 1.0
 
@@ -1436,6 +1437,11 @@ Death.Ghost.RunSpeed.Battleground = 1.0
 #        Default: 0 (disable)
 #                 1 (enable)
 #
+#    Battleground.ScoreStatistics
+#        Enable Battleground scores storage in database.
+#        Default: 0 - (Disabled)
+#                 1 - (Enabled)
+#
 #    Battleground.InvitationType
 #        Set Battleground invitation type
 #        Default: 0 (normal - invite as much players to bg as possible, don't bother with ballance)
@@ -1456,9 +1462,69 @@ Death.Ghost.RunSpeed.Battleground = 1.0
 Battleground.CastDeserter             = 1
 Battleground.QueueAnnouncer.Join      = 0
 Battleground.QueueAnnouncer.Start     = 0
+Battleground.ScoreStatistics          = 0
 Battleground.InvitationType           = 0
 BattleGround.PrematureFinishTimer     = 300000
-BattleGround.PremadeGroupWaitForMatch = 0
+BattleGround.PremadeGroupWaitForMatch = 1800000
+
+################################################################################
+# ARENA CONFIG
+#
+#    Arena.MaxRatingDifference
+#        The maximum rating difference between two groups in rated matches
+#        Default: 0 (disable, rating difference is discarded)
+#
+#    Arena.RatingDiscardTimer
+#        After the specified milliseconds has passed,
+#        rating information will be discarded when selecting teams for matches
+#        also initiates an update by this timer
+#        Default: 600000 (10 minutes, recommended)
+#                 0 (disable)
+#
+#    Arena.AutoDistributePoints
+#        Set if arena points should be distributed automatically, or by GM command
+#        Default: 0 (disable) (recommended): use gm command or sql query to distribute the points
+#                 1 (enable)  arena points are distributed automatically
+#
+#    Arena.AutoDistributeInterval
+#        How often should the distribution take place
+#        If automatic distribution is enabled in days
+#        Default: 7 (weekly)
+#
+#    Arena.QueueAnnouncer.Join
+#        Enable arena queue announcer posting to chat at join
+#        Default: 0 (disable)
+#                 1 (enable)
+#
+#    Arena.QueueAnnouncer.Exit
+#        Enable arena queue announcer posting to chat at exit
+#        Default: 0 (disable)
+#                 1 (enable)
+#
+#    Arena.ArenaSeason.ID
+#        Current area season id, used for selection some rated arena settings.
+#        Default: 1
+#
+#    Arena.StartRating
+#        Default Rating at team creation
+#        Default: -1 (use season dependent default value)
+#
+#    Arena.StartPersonalRating
+#        Default Personal Rating at team creation
+#        Default: -1 (use season dependent default value)
+#
+################################################################################
+
+Arena.MaxRatingDifference = 0
+Arena.RatingDiscardTimer = 600000
+Arena.AutoDistributePoints = 0
+Arena.AutoDistributeInterval = 7
+Arena.QueueAnnouncer.Join = 0
+Arena.QueueAnnouncer.Exit = 0
+Arena.ArenaSeason.ID = 1
+Arena.ArenaSeasonPrevious.ID = 0
+Arena.StartRating = -1
+Arena.StartPersonalRating = -1
 
 ################################################################################
 # OUTDOOR PVP CONFIG

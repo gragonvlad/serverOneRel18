@@ -586,13 +586,6 @@ enum Language
 
 #define LANGUAGES_COUNT   19
 
-enum TeamId
-{
-    TEAM_ALLIANCE = 0,
-    TEAM_HORDE,
-    TEAM_NEUTRAL
-};
-
 // In fact !=0 values is alliance/horde root faction ids
 enum Team
 {
@@ -602,6 +595,15 @@ enum Team
     HORDE               = 67,
     ALLIANCE            = 469,
 };
+
+enum PvpTeamIndex
+{
+    TEAM_INDEX_ALLIANCE = 0,
+    TEAM_INDEX_HORDE    = 1,
+    TEAM_INDEX_NEUTRAL  = 2,
+};
+
+#define PVP_TEAM_COUNT    2
 
 /**
  * This are the different things that a spell can have as it's spell effect, see
