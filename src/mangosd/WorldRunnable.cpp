@@ -54,6 +54,10 @@ void WorldRunnable::run()
     WorldDatabase.ThreadStart();                            // let thread do safe mySQL requests (one connection call enough)
     sWorld.InitResultQueue();
 
+#ifdef ENABLE_ELUNA
+    sEluna->OnStartup();
+#endif /* ENABLE_ELUNA */
+
     uint32 realCurrTime = 0;
     uint32 realPrevTime = WorldTimer::tick();
 
@@ -96,6 +100,13 @@ void WorldRunnable::run()
     }
 
     sWorld.CleanupsBeforeStop();
+
+#ifdef ENABLE_ELUNA
+    sEluna->OnShutdown();
+#endif /* ENABLE_ELUNA */
+
+    sWorld.KickAll();                                       // save and kick all players
+    sWorld.UpdateSessions(1);                               // real players unload required UpdateSessions call
 
     sWorldSocketMgr->StopNetwork();
 
