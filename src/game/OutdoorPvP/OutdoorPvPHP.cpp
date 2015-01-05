@@ -117,7 +117,7 @@ void OutdoorPvPHP::HandleGameObjectCreate(GameObject* go)
     }
 }
 
-void OutdoorPvPHP::HandleObjectiveComplete(uint32 eventId, std::list<Player*> players, Team team)
+void OutdoorPvPHP::HandleObjectiveComplete(uint32 eventId, const std::list<Player*> &players, Team team)
 {
     uint32 credit = 0;
 
@@ -139,7 +139,7 @@ void OutdoorPvPHP::HandleObjectiveComplete(uint32 eventId, std::list<Player*> pl
             return;
     }
 
-    for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)
+    for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)
     {
         if ((*itr) && (*itr)->GetTeam() == team)
         {
