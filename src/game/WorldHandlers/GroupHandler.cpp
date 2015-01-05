@@ -647,10 +647,15 @@ void WorldSession::BuildPartyMemberStatsChangedPacket(Player* player, WorldPacke
 
     if (mask & GROUP_UPDATE_FLAG_STATUS)
     {
-        if (player->IsPvP())
-            *data << uint16(MEMBER_STATUS_ONLINE | MEMBER_STATUS_PVP);
+        if (player)
+        {
+            if (player->IsPvP())
+                { *data << uint16(MEMBER_STATUS_ONLINE | MEMBER_STATUS_PVP); }
+            else
+                { *data << uint16(MEMBER_STATUS_ONLINE); }
+        }
         else
-            *data << uint16(MEMBER_STATUS_ONLINE);
+            { *data << uint16(MEMBER_STATUS_OFFLINE); }
     }
 
     if (mask & GROUP_UPDATE_FLAG_CUR_HP)
