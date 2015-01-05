@@ -3656,19 +3656,13 @@ void Spell::DoSummon(SpellEffectIndex eff_idx)
         { ((Creature*)m_caster)->AI()->JustSummoned((Creature*)spawnCreature); }
     if (m_originalCaster && m_originalCaster != m_caster && m_originalCaster->GetTypeId() == TYPEID_UNIT && ((Creature*)m_originalCaster)->AI())
         { ((Creature*)m_originalCaster)->AI()->JustSummoned((Creature*)spawnCreature); }
-    if (Unit* summoner = m_caster->ToUnit())
-    // Used by Eluna
 #ifdef ENABLE_ELUNA
+    if (Unit* summoner = m_caster->ToUnit())
         sEluna->OnSummoned(spawnCreature, summoner);
-#endif /* ENABLE_ELUNA */
-
     else if (m_originalCaster)
         if (Unit* summoner = m_originalCaster->ToUnit())
-    // Used by Eluna
-#ifdef ENABLE_ELUNA
             sEluna->OnSummoned(spawnCreature, summoner);
 #endif /* ENABLE_ELUNA */
-
 }
 
 void Spell::EffectLearnSpell(SpellEffectIndex eff_idx)
@@ -3996,14 +3990,11 @@ void Spell::DoSummonWild(SpellEffectIndex eff_idx, uint32 forceFaction)
             // Notify original caster if not done already
             if (m_originalCaster && m_originalCaster != m_caster && m_originalCaster->GetTypeId() == TYPEID_UNIT && ((Creature*)m_originalCaster)->AI())
                 { ((Creature*)m_originalCaster)->AI()->JustSummoned(summon); }
+#ifdef ENABLE_ELUNA
             if (m_originalCaster)
                 if (Unit* summoner = m_originalCaster->ToUnit())
-    // Used by Eluna
-#ifdef ENABLE_ELUNA
                     sEluna->OnSummoned(summon, summoner);
 #endif /* ENABLE_ELUNA */
-
-
         }
     }
 }
@@ -4106,19 +4097,13 @@ void Spell::DoSummonGuardian(SpellEffectIndex eff_idx, uint32 forceFaction)
             { ((Creature*)m_caster)->AI()->JustSummoned(spawnCreature); }
         if (m_originalCaster && m_originalCaster != m_caster && m_originalCaster->GetTypeId() == TYPEID_UNIT && ((Creature*)m_originalCaster)->AI())
             { ((Creature*)m_originalCaster)->AI()->JustSummoned(spawnCreature); }
-        if (Unit* summoner = m_caster->ToUnit())
-    // Used by Eluna
 #ifdef ENABLE_ELUNA
+        if (Unit* summoner = m_caster->ToUnit())
             sEluna->OnSummoned(spawnCreature, summoner);
-#endif /* ENABLE_ELUNA */
-
         if (m_originalCaster)
             if (Unit* summoner = m_originalCaster->ToUnit())
-    // Used by Eluna
-#ifdef ENABLE_ELUNA
                 sEluna->OnSummoned(spawnCreature, summoner);
 #endif /* ENABLE_ELUNA */
-
     }
 }
 
@@ -5206,7 +5191,6 @@ void Spell::EffectScriptEffect(SpellEffectIndex eff_idx)
                         if (unitTarget->HasAura(spells[j], EFFECT_INDEX_0))
                             { return; }
 
-                    // cast
                     unitTarget->CastSpell(unitTarget, spells[urand(0, 3)], true);
                     return;
                 }
@@ -5911,7 +5895,6 @@ void Spell::EffectDuel(SpellEffectIndex eff_idx)
 #ifdef ENABLE_ELUNA
     sEluna->OnDuelRequest(target, caster);
 #endif /* ENABLE_ELUNA */
-
 }
 
 void Spell::EffectStuck(SpellEffectIndex /*eff_idx*/)
@@ -6229,13 +6212,10 @@ bool Spell::DoSummonPossessed(SpellEffectIndex eff_idx, uint32 forceFaction)
     // Notify Summoner
     if (m_originalCaster && m_originalCaster != m_caster && m_originalCaster->GetTypeId() == TYPEID_UNIT && ((Creature*)m_originalCaster)->AI())
         { ((Creature*)m_originalCaster)->AI()->JustSummoned(spawnCreature); }
-    if (Unit* summoner = m_originalCaster->ToUnit())
-    // Used by Eluna
 #ifdef ENABLE_ELUNA
+    if (Unit* summoner = m_originalCaster->ToUnit())
         sEluna->OnSummoned(spawnCreature, summoner);
 #endif /* ENABLE_ELUNA */
-
-    return true;
 }
 
 void Spell::EffectEnchantHeldItem(SpellEffectIndex eff_idx)
@@ -6722,12 +6702,11 @@ void Spell::DoSummonCritter(SpellEffectIndex eff_idx, uint32 forceFaction)
         { ((Creature*)m_caster)->AI()->JustSummoned(critter); }
     if (m_originalCaster && m_originalCaster != m_caster && m_originalCaster->GetTypeId() == TYPEID_UNIT && ((Creature*)m_originalCaster)->AI())
         { ((Creature*)m_originalCaster)->AI()->JustSummoned(critter); }
+#ifdef ENABLE_ELUNA
     if (Unit* summoner = m_caster->ToUnit())
         sEluna->OnSummoned(critter, summoner);
     if (m_originalCaster)
         if (Unit* summoner = m_originalCaster->ToUnit())
-    // Used by Eluna
-#ifdef ENABLE_ELUNA
             sEluna->OnSummoned(critter, summoner);
 #endif /* ENABLE_ELUNA */
 }
