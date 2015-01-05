@@ -32,12 +32,14 @@
  * EndScriptData
  */
 
-/* ContentData
-go_barov_journal
-go_ethereum_prison
-go_ethereum_stasis
-go_andorhal_tower
-EndContentData */
+/**
+ * ContentData
+ * go_barov_journal
+ * go_ethereum_prison
+ * go_ethereum_stasis
+ * go_andorhal_tower
+ * EndContentData
+ */
 
 #include "precompiled.h"
 
@@ -244,11 +246,6 @@ void AddSC_go_scripts()
     pNewScript = new Script;
     pNewScript->Name = "go_jump_a_tron";
     pNewScript->pGOUse =          &GOUse_go_jump_a_tron;
-    pNewScript->RegisterSelf();
-
-    pNewScript = new Script;
-    pNewScript->Name = "go_andorhal_tower";
-    pNewScript->pGOUse =          &GOUse_go_andorhal_tower;
     pNewScript->RegisterSelf();
 
     pNewScript = new Script;

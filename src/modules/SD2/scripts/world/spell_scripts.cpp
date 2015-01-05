@@ -32,20 +32,22 @@
  * EndScriptData
  */
 
-/* ContentData
-spell 8913
-spell 19512
-spell 21014
-spell 21050
-spell 29528
-spell 29866
-spell 34665
-spell 37136
-spell 39246
-spell 44935
-spell 45109
-spell 45111
-EndContentData */
+/**
+ * ContentData
+ * Spell 8913:  Sacred Cleansing
+ * Spell 19512: Apply Salve
+ * spell 21014
+ * Spell 21050: Melodious Rapture
+ * spell 29528
+ * spell 29866
+ * spell 34665
+ * spell 37136
+ * spell 39246
+ * spell 44935
+ * spell 45109
+ * spell 45111
+ * EndContentData
+ */
 
 #include "precompiled.h"
 

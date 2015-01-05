@@ -156,13 +156,27 @@ void instance_blackrock_spire::OnObjectCreate(GameObject* pGo)
         case GO_DRAGONSPINE:
             break;
 
-        case GO_ROOM_1_RUNE: m_aRoomRuneGuid[0] = pGo->GetObjectGuid(); return;
-        case GO_ROOM_2_RUNE: m_aRoomRuneGuid[1] = pGo->GetObjectGuid(); return;
-        case GO_ROOM_3_RUNE: m_aRoomRuneGuid[2] = pGo->GetObjectGuid(); return;
-        case GO_ROOM_4_RUNE: m_aRoomRuneGuid[3] = pGo->GetObjectGuid(); return;
-        case GO_ROOM_5_RUNE: m_aRoomRuneGuid[4] = pGo->GetObjectGuid(); return;
-        case GO_ROOM_6_RUNE: m_aRoomRuneGuid[5] = pGo->GetObjectGuid(); return;
-        case GO_ROOM_7_RUNE: m_aRoomRuneGuid[6] = pGo->GetObjectGuid(); return;
+        case GO_ROOM_1_RUNE:
+            m_aRoomRuneGuid[0] = pGo->GetObjectGuid();
+            return;
+        case GO_ROOM_2_RUNE:
+            m_aRoomRuneGuid[1] = pGo->GetObjectGuid();
+            return;
+        case GO_ROOM_3_RUNE:
+            m_aRoomRuneGuid[2] = pGo->GetObjectGuid();
+            return;
+        case GO_ROOM_4_RUNE:
+            m_aRoomRuneGuid[3] = pGo->GetObjectGuid();
+            return;
+        case GO_ROOM_5_RUNE:
+            m_aRoomRuneGuid[4] = pGo->GetObjectGuid();
+            return;
+        case GO_ROOM_6_RUNE:
+            m_aRoomRuneGuid[5] = pGo->GetObjectGuid();
+            return;
+        case GO_ROOM_7_RUNE:
+            m_aRoomRuneGuid[6] = pGo->GetObjectGuid();
+            return;
 
         case GO_EMBERSEER_RUNE_1:
         case GO_EMBERSEER_RUNE_2:
@@ -737,9 +751,13 @@ void instance_blackrock_spire::Update(uint32 uiDiff)
     if (m_uiFlamewreathEventTimer)
     {
         if (m_uiFlamewreathEventTimer <= uiDiff)
+        {
             DoSendNextFlamewreathWave();
+        }
         else
+        {
             m_uiFlamewreathEventTimer -= uiDiff;
+        }
     }
 
     // unlock dragon spine door
@@ -803,10 +821,10 @@ InstanceData* GetInstanceData_instance_blackrock_spire(Map* pMap)
 
 bool AreaTrigger_at_blackrock_spire(Player* pPlayer, AreaTriggerEntry const* pAt)
 {
-	if (!pPlayer->IsAlive() || pPlayer->isGameMaster())
-	{
-		return false;
-	}
+    if (!pPlayer->IsAlive() || pPlayer->isGameMaster())
+    {
+        return false;
+    }
 
     switch (pAt->id)
     {
@@ -835,6 +853,7 @@ bool AreaTrigger_at_blackrock_spire(Player* pPlayer, AreaTriggerEntry const* pAt
                 {
                     pRend->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_OOC_NOT_ATTACKABLE);
                 }
+
                 pInstance->SetData(TYPE_STADIUM, IN_PROGRESS);
             }
             break;

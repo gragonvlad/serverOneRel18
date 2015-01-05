@@ -62,7 +62,7 @@ bool instance_stratholme::StartSlaugtherSquare()
         DoUseDoorOrButton(GO_PORT_GAUNTLET);
         DoUseDoorOrButton(GO_PORT_SLAUGTHER);
 
-        debug_log("SD2: Instance Stratholme: Open slaugther square.");
+        debug_log("SD2: Instance Stratholme: Open slaughter square.");
 
         return true;
     }
@@ -254,7 +254,7 @@ void instance_stratholme::SetData(uint32 uiType, uint32 uiData)
                     // However looks like that this door is no more closed
                     DoUseDoorOrButton(GO_ZIGGURAT_DOOR_4);
 
-                    // No more handlng of Abomnations
+                    // No more handling of Abominations
                     m_uiSlaugtherSquareTimer = 0;
 
                     if (Creature* pBaron = GetSingleCreatureFromStorage(NPC_BARON))
@@ -265,12 +265,12 @@ void instance_stratholme::SetData(uint32 uiType, uint32 uiData)
                             pRamstein->GetMotionMaster()->MovePoint(0, aStratholmeLocation[3].m_fX, aStratholmeLocation[3].m_fY, aStratholmeLocation[3].m_fZ);
                         }
 
-                        debug_log("SD2: Instance Stratholme - Slaugther event: Ramstein spawned.");
+                        debug_log("SD2: Instance Stratholme - Slaughter event: Ramstein spawned.");
                     }
                 }
                 else
                 {
-                    debug_log("SD2: Instance Stratholme - Slaugther event: %u Abomnation left to kill.", uiCount);
+                    debug_log("SD2: Instance Stratholme - Slaughter event: %u Abomination left to kill.", uiCount);
                 }
             }
             // After fail aggroing Ramstein means wipe on Ramstein, so close door again
@@ -300,16 +300,16 @@ void instance_stratholme::SetData(uint32 uiType, uint32 uiData)
                         }
                     }
 
-                    debug_log("SD2: Instance Stratholme - Slaugther event: Summoned 5 guards.");
+                    debug_log("SD2: Instance Stratholme - Slaughter event: Summoned 5 guards.");
                 }
             }
-            // Open Door again and stop Abomnation
+            // Open Door again and stop Abomination
             if (uiData == FAIL && m_auiEncounter[uiType] != FAIL)
             {
                 DoUseDoorOrButton(GO_PORT_GAUNTLET);
                 m_uiSlaugtherSquareTimer = 0;
 
-                // Let already moving Abomnations stop
+                // Let already moving Abominations stop
                 for (GuidSet::const_iterator itr = m_sAbomnationGUID.begin(); itr != m_sAbomnationGUID.end(); ++itr)
                 {
                     Creature* pAbom = instance->GetCreature(*itr);
@@ -885,11 +885,11 @@ void instance_stratholme::Update(uint32 uiDiff)
     {
         if (m_uiSlaugtherSquareTimer <= uiDiff)
         {
-            // Call next Abomnations
+            // Call next Abominations
             for (GuidSet::const_iterator itr = m_sAbomnationGUID.begin(); itr != m_sAbomnationGUID.end(); ++itr)
             {
                 Creature* pAbom = instance->GetCreature(*itr);
-                // Skip killed and already walking Abomnations
+                // Skip killed and already walking Abominations
                 if (!pAbom || !pAbom->IsAlive() || pAbom->GetMotionMaster()->GetCurrentMovementGeneratorType() == POINT_MOTION_TYPE)
                 {
                     continue;

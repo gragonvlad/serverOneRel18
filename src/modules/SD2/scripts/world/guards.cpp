@@ -23,35 +23,39 @@
  * and lore are copyrighted by Blizzard Entertainment, Inc.
  */
 
-/* ScriptData
-SDName: Guards
-SD%Complete: 100
-SDComment: CombatAI should be organized better for future.
-SDCategory: Guards
-EndScriptData */
+/**
+ * ScriptData
+ * SDName:      Guards
+ * SD%Complete: 100
+ * SDComment:   Zone guards
+ * SDCategory:  Guards
+ * EndScriptData
+ */
 
-/* ContentData
-guard_azuremyst
-guard_bluffwatcher
-guard_contested
-guard_darnassus
-guard_dunmorogh
-guard_durotar
-guard_elwynnforest
-guard_eversong
-guard_exodar
-guard_ironforge
-guard_mulgore
-guard_orgrimmar
-guard_shattrath
-guard_shattrath_aldor
-guard_shattrath_scryer
-guard_silvermoon
-guard_stormwind
-guard_teldrassil
-guard_tirisfal
-guard_undercity
-EndContentData */
+/**
+ * ContentData
+ * guard_azuremyst
+ * guard_bluffwatcher
+ * guard_contested
+ * guard_darnassus
+ * guard_dunmorogh
+ * guard_durotar
+ * guard_elwynnforest
+ * guard_eversong
+ * guard_exodar
+ * guard_ironforge
+ * guard_mulgore
+ * guard_orgrimmar
+ * guard_shattrath
+ * guard_shattrath_aldor
+ * guard_shattrath_scryer
+ * guard_silvermoon
+ * guard_stormwind
+ * guard_teldrassil
+ * guard_tirisfal
+ * guard_undercity
+ * EndContentData
+ */
 
 #include "precompiled.h"
 #include "guard_ai.h"

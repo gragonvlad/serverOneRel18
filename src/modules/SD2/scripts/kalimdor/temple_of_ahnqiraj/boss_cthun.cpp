@@ -452,7 +452,9 @@ struct boss_cthunAI : public Scripted_NoMovementAI
         {
             // Workaround for missing spell 26648
             if (Player* pPlayer = m_creature->GetMap()->GetPlayer(*itr))
-            { m_creature->DealDamage(pPlayer, pPlayer->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NONE, NULL, false); }
+            {
+                m_creature->DealDamage(pPlayer, pPlayer->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NONE, NULL, false);
+            }
         }
 
         Scripted_NoMovementAI::EnterEvadeMode();
@@ -737,7 +739,7 @@ struct boss_cthunAI : public Scripted_NoMovementAI
         else
             { m_uiEyeTentacleTimer -= uiDiff; }
 
-        // Note: this should be handled by the maps
+        // Note: this should be applied by the teleport spell
         if (m_uiDigestiveAcidTimer < uiDiff)
         {
             // Iterate the Stomach players list and apply the Digesti acid debuff on them every 4 sec
