@@ -201,7 +201,7 @@ class Quest
         uint32 GetQuestMethod() const { return QuestMethod; }
         int32  GetZoneOrSort() const { return ZoneOrSort; }
         uint32 GetMinLevel() const { return MinLevel; }
-        int32  GetQuestLevel() const { return QuestLevel; }
+        uint32 GetQuestLevel() const { return QuestLevel; }
         uint32 GetType() const { return Type; }
         uint32 GetRequiredClasses() const { return RequiredClasses; }
         uint32 GetRequiredRaces() const { return RequiredRaces; }
@@ -301,7 +301,7 @@ class Quest
         uint32 QuestMethod;
         int32  ZoneOrSort;
         uint32 MinLevel;
-        int32  QuestLevel;
+        uint32 QuestLevel;
         uint32 Type;
         uint32 RequiredClasses;
         uint32 RequiredRaces;
