@@ -708,14 +708,14 @@ uint32 AuctionBotBuyer::GetBuyableEntry(AHB_Buyer_Config& config)
                 if (Aentry->buyout != 0)
                 {
                     if (Aentry->buyout / item->GetCount() < buyerItem.MinBuyPrice)
-                        buyerItem.MinBuyPrice = Aentry->buyout / item->GetCount();
+                        { buyerItem.MinBuyPrice = Aentry->buyout / item->GetCount(); }
                     else if (buyerItem.MinBuyPrice == 0)
-                        buyerItem.MinBuyPrice = Aentry->buyout / item->GetCount();
+                        { buyerItem.MinBuyPrice = Aentry->buyout / item->GetCount(); }
                 }
                 if (Aentry->startbid / item->GetCount() < buyerItem.MinBidPrice)
-                    buyerItem.MinBidPrice = Aentry->startbid / item->GetCount();
+                    { buyerItem.MinBidPrice = Aentry->startbid / item->GetCount(); }
                 else if (buyerItem.MinBidPrice == 0)
-                    buyerItem.MinBidPrice = Aentry->startbid / item->GetCount();
+                    { buyerItem.MinBidPrice = Aentry->startbid / item->GetCount(); }
 
                 if (!Aentry->owner)
                 {
@@ -942,10 +942,11 @@ void AuctionBotBuyer::addNewAuctionBuyerBotBid(AHB_Buyer_Config& config)
         BasePrice *= item->GetCount();
 
         double MaxBuyablePrice = (BasePrice * config.BuyerPriceRatio) / 100;
+        BuyerItemInfoMap::iterator sameitem_itr = config.SameItemInfo.find(item->GetEntry());
         uint32 buyoutPrice = auction->buyout / item->GetCount();
+
         uint32 bidPrice;
         uint32 bidPriceByItem;
-
         if (auction->bid >= auction->startbid)
         {
             bidPrice = auction->GetAuctionOutBid();
@@ -961,8 +962,6 @@ void AuctionBotBuyer::addNewAuctionBuyerBotBid(AHB_Buyer_Config& config)
         double InGame_BidPrice;
         uint32 minBidPrice;
         uint32 minBuyPrice;
-
-        BuyerItemInfoMap::iterator sameitem_itr = config.SameItemInfo.find(item->GetEntry());
         if (sameitem_itr == config.SameItemInfo.end())
         {
             InGame_BuyPrice = 0;
@@ -975,8 +974,9 @@ void AuctionBotBuyer::addNewAuctionBuyerBotBid(AHB_Buyer_Config& config)
             const BuyerItemInfo& sameBuyerItem = sameitem_itr->second;
 
             if (sameBuyerItem.ItemCount == 1)
-                MaxBuyablePrice = MaxBuyablePrice * 5;  // if only one item exist can be bought if the price is high too.
-
+                {
+                    MaxBuyablePrice = MaxBuyablePrice * 5;
+                } // if only one item exist can be buyed if the price is high too.
             InGame_BuyPrice = sameBuyerItem.BuyPrice / sameBuyerItem.ItemCount;
             InGame_BidPrice = sameBuyerItem.BidPrice / sameBuyerItem.ItemCount;
             minBidPrice = sameBuyerItem.MinBidPrice;
@@ -1896,6 +1896,7 @@ void AuctionHouseBot::PrepareStatusInfos(AuctionHouseBotStatusInfo& statusInfo)
         }
     }
 }
+
 
 void AuctionHouseBot::Rebuild(bool all)
 {
