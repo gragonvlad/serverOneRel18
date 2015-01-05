@@ -401,7 +401,7 @@ Weather* World::AddWeather(uint32 zone_id)
 {
     WeatherZoneChances const* weatherChances = sObjectMgr.GetWeatherChances(zone_id);
 
-    // zone not have weather, ignore
+    // if zone does not have any weather changes, return.
     if (!weatherChances)
         { return NULL; }
 
@@ -1673,7 +1673,7 @@ void World::SendWorldText(int32 string_id, ...)
         {
             Player* player = session->GetPlayer();
             if (player && player->IsInWorld())
-                wt_do(player);
+                { wt_do(player); }
         }
     }
 
@@ -1768,7 +1768,7 @@ void World::KickAllLess(AccountTypes sec)
 }
 
 /// Ban an account or ban an IP address, duration_secs if it is positive used, otherwise permban
-BanReturn World::BanAccount(BanMode mode, std::string nameOrIP, uint32 duration_secs, std::string reason, std::string author)
+BanReturn World::BanAccount(BanMode mode, std::string nameOrIP, uint32 duration_secs, std::string reason, const std::string &author)
 {
     LoginDatabase.escape_string(nameOrIP);
     LoginDatabase.escape_string(reason);

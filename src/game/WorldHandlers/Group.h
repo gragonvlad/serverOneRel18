@@ -423,7 +423,10 @@ class MANGOS_DLL_SPEC Group
         void UnbindInstance(uint32 mapid, uint8 difficulty, bool unload = false);
         InstanceGroupBind* GetBoundInstance(uint32 mapId, Player* player);
         InstanceGroupBind* GetBoundInstance(Map* aMap, Difficulty difficulty);
-        BoundInstancesMap& GetBoundInstances(Difficulty difficulty) { return m_boundInstances[difficulty]; }
+        BoundInstancesMap& GetBoundInstances(Difficulty difficulty)
+        {
+            return m_boundInstances[difficulty]; 
+        }
 
     protected:
         bool _addMember(ObjectGuid guid, const char* name, bool isAssistant = false);

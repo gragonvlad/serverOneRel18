@@ -1063,87 +1063,87 @@ struct SpellEntry
         uint32    SchoolMask;                               // 215      m_schoolMask
 
         /**
-		* function calculating the basic damage/snare/... points for a given Spell Effect.
-		* Returns an int32 value representing the basic points.
-		* \param eff INDEX of the Spell Effect.
-		*/
+        * function calculating the basic damage/snare/... points for a given Spell Effect.
+        * Returns an int32 value representing the basic points.
+        * \param eff INDEX of the Spell Effect.
+        */
         int32 CalculateSimpleValue(SpellEffectIndex eff) const { return EffectBasePoints[eff] + int32(EffectBaseDice[eff]); }
 
-		/**
-		* function indicating whether a spell fits to a spell family.
-		* Returns a bool value.
-		* \param familyFlags The uint64 value of Spell Family Flags.
-		*/
+        /**
+        * function indicating whether a spell fits to a spell family.
+        * Returns a bool value.
+        * \param familyFlags The uint64 value of Spell Family Flags.
+        */
         bool IsFitToFamilyMask(uint64 familyFlags) const
         {
             return SpellFamilyFlags.IsFitToFamilyMask(familyFlags);
         }
 
-		/**
-		* function indicating whether a spell fits to a spell family based on arguments.
-		* Returns a bool value.
-		* \param family SpellFamily to which the spell should belong to.
-		* \param familyFlags The uint64 value of Spell Family Flags.
-		*/
+        /**
+        * function indicating whether a spell fits to a spell family based on arguments.
+        * Returns a bool value.
+        * \param family SpellFamily to which the spell should belong to.
+        * \param familyFlags The uint64 value of Spell Family Flags.
+        */
         bool IsFitToFamily(SpellFamily family, uint64 familyFlags) const
         {
             return SpellFamily(SpellFamilyName) == family && IsFitToFamilyMask(familyFlags);
         }
 
-		/**
-		* function indicating whether a spell fits to a spell class family based on a ClassFamilyMask.
-		* Returns a bool value.
-		* \param mask ClassFamilyMask representing the class family.
-		*/
+        /**
+        * function indicating whether a spell fits to a spell class family based on a ClassFamilyMask.
+        * Returns a bool value.
+        * \param mask ClassFamilyMask representing the class family.
+        */
         bool IsFitToFamilyMask(ClassFamilyMask const& mask) const
         {
             return SpellFamilyFlags.IsFitToFamilyMask(mask);
         }
 
-		/**
-		* function indicating whether a spell fits to a spell class family based on arguments.
-		* Returns a bool value.
-		* \param family SpellFamily to which the spell should belong to.
-		* \param masl ClassFamilyMask representing the class family.
-		*/
+        /**
+        * function indicating whether a spell fits to a spell class family based on arguments.
+        * Returns a bool value.
+        * \param family SpellFamily to which the spell should belong to.
+        * \param masl ClassFamilyMask representing the class family.
+        */
         bool IsFitToFamily(SpellFamily family, ClassFamilyMask const& mask) const
         {
             return SpellFamily(SpellFamilyName) == family && IsFitToFamilyMask(mask);
         }
 
-		/**
-		* function indicating whether a spell has an attribute doing bitwise comparison.
-		* Returns a bool value.
-		* \param attribute SpellAttributes to compare to actual attribute.
-		*/
+        /**
+        * function indicating whether a spell has an attribute doing bitwise comparison.
+        * Returns a bool value.
+        * \param attribute SpellAttributes to compare to actual attribute.
+        */
         inline bool HasAttribute(SpellAttributes attribute) const { return Attributes & attribute; }
 
-		/**
-		* function indicating whether a spell has an attribute doing bitwise comparison.
-		* Returns a bool value.
-		* \param attribute SpellAttributesEx to compare to actual attributeEx.
-		*/
+        /**
+        * function indicating whether a spell has an attribute doing bitwise comparison.
+        * Returns a bool value.
+        * \param attribute SpellAttributesEx to compare to actual attributeEx.
+        */
         inline bool HasAttribute(SpellAttributesEx attribute) const { return AttributesEx & attribute; }
 
-		/**
-		* function indicating whether a spell has an attribute doing bitwise comparison.
-		* Returns a bool value.
-		* \param attribute SpellAttributesEx2 to compare to actual attributeEx2.
-		*/
+        /**
+        * function indicating whether a spell has an attribute doing bitwise comparison.
+        * Returns a bool value.
+        * \param attribute SpellAttributesEx2 to compare to actual attributeEx2.
+        */
         inline bool HasAttribute(SpellAttributesEx2 attribute) const { return AttributesEx2 & attribute; }
 
-		/**
-		* function indicating whether a spell has an attribute doing bitwise comparison.
-		* Returns a bool value.
-		* \param attribute SpellAttributesEx3 to compare to actual attributeEx3.
-		*/
+        /**
+        * function indicating whether a spell has an attribute doing bitwise comparison.
+        * Returns a bool value.
+        * \param attribute SpellAttributesEx3 to compare to actual attributeEx3.
+        */
         inline bool HasAttribute(SpellAttributesEx3 attribute) const { return AttributesEx3 & attribute; }
 
-		/**
-		* function indicating whether a spell has an attribute doing bitwise comparison.
-		* Returns a bool value.
-		* \param attribute SpellAttributesEx4 to compare to actual attributeEx4.
-		*/
+        /**
+        * function indicating whether a spell has an attribute doing bitwise comparison.
+        * Returns a bool value.
+        * \param attribute SpellAttributesEx4 to compare to actual attributeEx4.
+        */
         inline bool HasAttribute(SpellAttributesEx4 attribute) const { return AttributesEx4 & attribute; }
         inline bool HasAttribute(SpellAttributesEx5 attribute) const { return AttributesEx5 & attribute; }
         inline bool HasAttribute(SpellAttributesEx6 attribute) const { return AttributesEx6 & attribute; }
@@ -1353,10 +1353,10 @@ struct TaxiNodesEntry
 */
 struct TaxiPathEntry
 {
-    uint32    ID;											// 0		ID - ID of the Taxi Path in DBC.
-    uint32    from;											// 1		m_from - ID of the Starting Taxi Node of the travel.
-    uint32    to;											// 2		m_to - ID of the Ending Taxi Node of the travel.
-    uint32    price;										// 3		m_price - Basic Price of the travel (Unit : Copper).
+    uint32    ID;                                            // 0        ID - ID of the Taxi Path in DBC.
+    uint32    from;                                          // 1        m_from - ID of the Starting Taxi Node of the travel.
+    uint32    to;                                            // 2        m_to - ID of the Ending Taxi Node of the travel.
+    uint32    price;                                         // 3        m_price - Basic Price of the travel (Unit : Copper).
 };
 
 /**
@@ -1424,28 +1424,6 @@ struct WorldMapAreaEntry
     float   x2;                                             // 7        m_locBottom
     int32   virtual_map_id;                                 // 8        m_displayMapID -1 (map_id have correct map) other: virtual map where zone show (map_id - where zone in fact internally)
 };
-
-/* not used in 2.4.3 code
-#define MAX_WORLD_MAP_OVERLAY_AREA_IDX 4
-
-struct WorldMapOverlayEntry
-{
-    uint32    ID;                                           // 0        m_ID
-    // uint32    worldMapAreaId;                            // 1        m_mapAreaID (WorldMapArea.dbc)
-    uint32    areatableID[MAX_WORLD_MAP_OVERLAY_AREA_IDX];  // 2-5      m_areaID
-                                                            // 6        m_mapPointX
-                                                            // 7        m_mapPointY
-    // char* internal_name                                  // 8        m_textureName
-                                                            // 9        m_textureWidth
-                                                            // 10       m_textureHeight
-                                                            // 11       m_offsetX
-                                                            // 12       m_offsetY
-                                                            // 13       m_hitRectTop
-                                                            // 14       m_hitRectLeft
-                                                            // 15       m_hitRectBottom
-                                                            // 16       m_hitRectRight
-};
-*/
 
 /**
 * \struct WorldSafeLocsEntry

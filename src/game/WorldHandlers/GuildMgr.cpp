@@ -91,6 +91,7 @@ std::string GuildMgr::GetGuildNameById(uint32 guildId) const
 
 void GuildMgr::LoadGuilds()
 {
+    Guild* newGuild;
     uint32 count = 0;
 
     //                                                    0             1          2          3           4           5           6
@@ -136,7 +137,7 @@ void GuildMgr::LoadGuilds()
         bar.step();
         ++count;
 
-        Guild* newGuild = new Guild;
+        newGuild = new Guild;
         if (!newGuild->LoadGuildFromDB(result) ||
             !newGuild->LoadRanksFromDB(guildRanksResult) ||
             !newGuild->LoadMembersFromDB(guildMembersResult) ||

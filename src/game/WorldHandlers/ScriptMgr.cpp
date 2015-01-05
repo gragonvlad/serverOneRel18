@@ -45,6 +45,8 @@
 #include "ScriptDevMgr.h"
 #endif
 
+#include <cstring> /* std::strcmp */
+
 #include "revision_nr.h"
 
 ScriptMapMapName sQuestEndScripts;

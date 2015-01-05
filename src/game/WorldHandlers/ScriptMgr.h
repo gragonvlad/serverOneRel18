@@ -588,7 +588,6 @@ class ScriptMgr
 
         // atomic op counter for active scripts amount
         ACE_Atomic_Op<ACE_Thread_Mutex, long> m_scheduledScripts;
-
 };
 
 // Starters for events

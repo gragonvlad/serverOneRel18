@@ -689,7 +689,7 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                         SpellEntry const* spellInfo = sSpellStore.LookupEntry(itr->first);
 
                         if (spellInfo->SpellFamilyName == SPELLFAMILY_ROGUE && (spellInfo->SpellFamilyFlags & UI64LIT(0x0000026000000860)))
-                            ((Player*)m_caster)->RemoveSpellCooldown((itr++)->first, true);
+                            { ((Player*)m_caster)->RemoveSpellCooldown((itr++)->first, true); }
                         else
                             { ++itr; }
                     }
@@ -820,7 +820,7 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                 case 19395:                                 // Gordunni Trap
                 {
                     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
-                        return;
+                        { return; }
 
                     unitTarget->CastSpell(unitTarget, urand(0, 1) ? 19394 : 11756, true);
                     return;
@@ -884,8 +884,7 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                 case 20577:                                 // Cannibalize
                 {
                     if (unitTarget)
-                        m_caster->CastSpell(m_caster, 20578, false, NULL);
-
+                        { m_caster->CastSpell(m_caster, 20578, false, NULL); }
                     return;
                 }
                 case 21147:                                 // Arcane Vacuum
@@ -1777,8 +1776,8 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                         SpellEntry const* spellInfo = sSpellStore.LookupEntry(itr->first);
 
                         if (spellInfo->SpellFamilyName == SPELLFAMILY_MAGE &&
-                                (GetSpellSchoolMask(spellInfo) & SPELL_SCHOOL_MASK_FROST) &&
-                                spellInfo->Id != 11958 && GetSpellRecoveryTime(spellInfo) > 0)
+                            (GetSpellSchoolMask(spellInfo) & SPELL_SCHOOL_MASK_FROST) &&
+                            spellInfo->Id != 11958 && GetSpellRecoveryTime(spellInfo) > 0)
                         {
                             ((Player*)m_caster)->RemoveSpellCooldown((itr++)->first, true);
                         }
@@ -2399,7 +2398,7 @@ void Spell::EffectForceCast(SpellEffectIndex eff_idx)
     unitTarget->CastSpell(unitTarget, spellInfo, true, NULL, NULL, m_originalCasterGUID);
 }
 
-void Spell::EffectTriggerSpell(SpellEffectIndex effIndex)
+void Spell::EffectTriggerSpell(SpellEffectIndex eff_idx)
 {
     // only unit case known
     if (!unitTarget)
@@ -2409,7 +2408,7 @@ void Spell::EffectTriggerSpell(SpellEffectIndex effIndex)
         return;
     }
 
-    uint32 triggered_spell_id = m_spellInfo->EffectTriggerSpell[effIndex];
+    uint32 triggered_spell_id = m_spellInfo->EffectTriggerSpell[eff_idx];
 
     // special cases
     switch (triggered_spell_id)
@@ -2836,7 +2835,7 @@ void Spell::EffectPowerDrain(SpellEffectIndex eff_idx)
     if (curPower < power)
         { new_damage = curPower; }
     else
-        new_damage = power;
+        { new_damage = power; }
 
     unitTarget->ModifyPower(drain_power, -new_damage);
 

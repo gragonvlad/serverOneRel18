@@ -770,7 +770,7 @@ void WorldSession::BuildPartyMemberStatsChangedPacket(Player* player, WorldPacke
             }
         }
         else
-            *data << uint64(0);
+            { *data << uint64(0); }
     }
 }
 

@@ -201,36 +201,36 @@ pAuraProcHandler AuraProcHandler[TOTAL_AURAS] =
     &Unit::HandleNULLProc,                                  // 159 SPELL_AURA_NO_PVP_CREDIT      only for Honorless Target spell
     &Unit::HandleNULLProc,                                  // 160 SPELL_AURA_MOD_AOE_AVOIDANCE
     &Unit::HandleNULLProc,                                  // 161 SPELL_AURA_MOD_HEALTH_REGEN_IN_COMBAT
-    &Unit::HandleNULLProc,                                  //162 SPELL_AURA_POWER_BURN_MANA
-    &Unit::HandleNULLProc,                                  //163 SPELL_AURA_MOD_CRIT_DAMAGE_BONUS
-    &Unit::HandleNULLProc,                                  //164 useless, only one test spell
+    &Unit::HandleNULLProc,                                  // 162 SPELL_AURA_POWER_BURN_MANA
+    &Unit::HandleNULLProc,                                  // 163 SPELL_AURA_MOD_CRIT_DAMAGE_BONUS
+    &Unit::HandleNULLProc,                                  // 164 useless, only one test spell
     &Unit::HandleAttackPowerAttackerBonusAuraProc,          //165 SPELL_AURA_MELEE_ATTACK_POWER_ATTACKER_BONUS
-    &Unit::HandleNULLProc,                                  //166 SPELL_AURA_MOD_ATTACK_POWER_PCT
-    &Unit::HandleNULLProc,                                  //167 SPELL_AURA_MOD_RANGED_ATTACK_POWER_PCT
-    &Unit::HandleNULLProc,                                  //168 SPELL_AURA_MOD_DAMAGE_DONE_VERSUS
-    &Unit::HandleNULLProc,                                  //169 SPELL_AURA_MOD_CRIT_PERCENT_VERSUS
-    &Unit::HandleNULLProc,                                  //170 SPELL_AURA_DETECT_AMORE       only for Detect Amore spell
-    &Unit::HandleNULLProc,                                  //171 SPELL_AURA_MOD_SPEED_NOT_STACK
-    &Unit::HandleNULLProc,                                  //172 SPELL_AURA_MOD_MOUNTED_SPEED_NOT_STACK
-    &Unit::HandleNULLProc,                                  //173 SPELL_AURA_ALLOW_CHAMPION_SPELLS  only for Proclaim Champion spell
-    &Unit::HandleNULLProc,                                  //174 SPELL_AURA_MOD_SPELL_DAMAGE_OF_STAT_PERCENT
-    &Unit::HandleNULLProc,                                  //175 SPELL_AURA_MOD_SPELL_HEALING_OF_STAT_PERCENT
-    &Unit::HandleNULLProc,                                  //176 SPELL_AURA_SPIRIT_OF_REDEMPTION   only for Spirit of Redemption spell, die at aura end
-    &Unit::HandleNULLProc,                                  //177 SPELL_AURA_AOE_CHARM
-    &Unit::HandleNULLProc,                                  //178 SPELL_AURA_MOD_DEBUFF_RESISTANCE
-    &Unit::HandleNULLProc,                                  //179 SPELL_AURA_MOD_ATTACKER_SPELL_CRIT_CHANCE
-    &Unit::HandleNULLProc,                                  //180 SPELL_AURA_MOD_FLAT_SPELL_DAMAGE_VERSUS
-    &Unit::HandleNULLProc,                                  //181 SPELL_AURA_MOD_FLAT_SPELL_CRIT_DAMAGE_VERSUS unused
-    &Unit::HandleNULLProc,                                  //182 SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT
-    &Unit::HandleNULLProc,                                  //183 SPELL_AURA_MOD_CRITICAL_THREAT only used in 28746
-    &Unit::HandleNULLProc,                                  //184 SPELL_AURA_MOD_ATTACKER_MELEE_HIT_CHANCE
-    &Unit::HandleNULLProc,                                  //185 SPELL_AURA_MOD_ATTACKER_RANGED_HIT_CHANCE
-    &Unit::HandleNULLProc,                                  //186 SPELL_AURA_MOD_ATTACKER_SPELL_HIT_CHANCE
-    &Unit::HandleNULLProc,                                  //187 SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_CHANCE
-    &Unit::HandleNULLProc,                                  //188 SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_CHANCE
-    &Unit::HandleNULLProc,                                  //189 SPELL_AURA_MOD_RATING
-    &Unit::HandleNULLProc,                                  //190 SPELL_AURA_MOD_FACTION_REPUTATION_GAIN
-    &Unit::HandleNULLProc,                                  //191 SPELL_AURA_USE_NORMAL_MOVEMENT_SPEED
+    &Unit::HandleNULLProc,                                  // 166 SPELL_AURA_MOD_ATTACK_POWER_PCT
+    &Unit::HandleNULLProc,                                  // 167 SPELL_AURA_MOD_RANGED_ATTACK_POWER_PCT
+    &Unit::HandleNULLProc,                                  // 168 SPELL_AURA_MOD_DAMAGE_DONE_VERSUS
+    &Unit::HandleNULLProc,                                  // 169 SPELL_AURA_MOD_CRIT_PERCENT_VERSUS
+    &Unit::HandleNULLProc,                                  // 170 SPELL_AURA_DETECT_AMORE       only for Detect Amore spell
+    &Unit::HandleNULLProc,                                  // 171 SPELL_AURA_MOD_SPEED_NOT_STACK
+    &Unit::HandleNULLProc,                                  // 172 SPELL_AURA_MOD_MOUNTED_SPEED_NOT_STACK
+    &Unit::HandleNULLProc,                                  // 173 SPELL_AURA_ALLOW_CHAMPION_SPELLS  only for Proclaim Champion spell
+    &Unit::HandleNULLProc,                                  // 174 SPELL_AURA_MOD_SPELL_DAMAGE_OF_STAT_PERCENT
+    &Unit::HandleNULLProc,                                  // 175 SPELL_AURA_MOD_SPELL_HEALING_OF_STAT_PERCENT
+    &Unit::HandleNULLProc,                                  // 176 SPELL_AURA_SPIRIT_OF_REDEMPTION   only for Spirit of Redemption spell, die at aura end
+    &Unit::HandleNULLProc,                                  // 177 SPELL_AURA_AOE_CHARM
+    &Unit::HandleNULLProc,                                  // 178 SPELL_AURA_MOD_DEBUFF_RESISTANCE
+    &Unit::HandleNULLProc,                                  // 179 SPELL_AURA_MOD_ATTACKER_SPELL_CRIT_CHANCE
+    &Unit::HandleNULLProc,                                  // 180 SPELL_AURA_MOD_FLAT_SPELL_DAMAGE_VERSUS
+    &Unit::HandleNULLProc,                                  // 181 SPELL_AURA_MOD_FLAT_SPELL_CRIT_DAMAGE_VERSUS unused
+    &Unit::HandleNULLProc,                                  // 182 SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT
+    &Unit::HandleNULLProc,                                  // 183 SPELL_AURA_MOD_CRITICAL_THREAT only used in 28746
+    &Unit::HandleNULLProc,                                  // 184 SPELL_AURA_MOD_ATTACKER_MELEE_HIT_CHANCE
+    &Unit::HandleNULLProc,                                  // 185 SPELL_AURA_MOD_ATTACKER_RANGED_HIT_CHANCE
+    &Unit::HandleNULLProc,                                  // 186 SPELL_AURA_MOD_ATTACKER_SPELL_HIT_CHANCE
+    &Unit::HandleNULLProc,                                  // 187 SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_CHANCE
+    &Unit::HandleNULLProc,                                  // 188 SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_CHANCE
+    &Unit::HandleNULLProc,                                  // 189 SPELL_AURA_MOD_RATING
+    &Unit::HandleNULLProc,                                  // 190 SPELL_AURA_MOD_FACTION_REPUTATION_GAIN
+    &Unit::HandleNULLProc,                                  // 191 SPELL_AURA_USE_NORMAL_MOVEMENT_SPEED
     &Unit::HandleNULLProc,                                  //192 SPELL_AURA_HASTE_MELEE
     &Unit::HandleNULLProc,                                  //193 SPELL_AURA_HASTE_ALL (in fact combat (any type attack) speed pct)
     &Unit::HandleNULLProc,                                  //194 SPELL_AURA_MOD_DEPRICATED_1 not used now (old SPELL_AURA_MOD_SPELL_DAMAGE_OF_INTELLECT)
@@ -1655,16 +1655,18 @@ SpellAuraProcResult Unit::HandleProcTriggerSpellAuraProc(Unit* pVictim, uint32 d
                     target = this;
                     break;
                 }
-                // case 24949: break;                       // Defensive State 2 (DND)
+                    // case 24949: break;                       // Defensive State 2 (DND)
                 case 27522:                                 // Mana Drain Trigger
                 case 40336:                                 // Mana Drain Trigger
                 case 46939:                                 // Black Bow of the Betrayer
+                {
                     // On successful melee or ranged attack gain 8 mana and if possible drain 8 mana from the target.
                     if (IsAlive())
                         { CastSpell(this, 29471, true, castItem, triggeredByAura); }
                     if (pVictim && pVictim->IsAlive())
                         { CastSpell(pVictim, 27526, true, castItem, triggeredByAura); }
                     return SPELL_AURA_PROC_OK;
+                }
                 case 31255:                                 // Deadly Swiftness (Rank 1)
                 {
                     // whenever you deal damage to a target who is below 20% health.

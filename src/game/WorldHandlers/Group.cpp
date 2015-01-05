@@ -583,8 +583,8 @@ void Group::GroupLoot(WorldObject* pSource, Loot* loot)
             continue;
         }
 
-		// Roll for creature drops only. Not for other containers.
-		if (itemProto->Quality >= uint32(m_lootThreshold) && !lootItem.freeforall && pSource->GetTypeId() == TYPEID_UNIT)
+        // Roll for creature drops only. Not for other containers.
+        if (itemProto->Quality >= uint32(m_lootThreshold) && !lootItem.freeforall && pSource->GetTypeId() == TYPEID_UNIT)
             { StartLootRoll(pSource, GROUP_LOOT, loot, itemSlot); }
         else
             { lootItem.is_underthreshold = 1; }
@@ -604,7 +604,7 @@ void Group::NeedBeforeGreed(WorldObject* pSource, Loot* loot)
         }
 
         // only roll for one-player items, not for ones everyone can get
-		if (itemProto->Quality >= uint32(m_lootThreshold) && !lootItem.freeforall && pSource->GetTypeId() == TYPEID_UNIT)
+        if (itemProto->Quality >= uint32(m_lootThreshold) && !lootItem.freeforall && pSource->GetTypeId() == TYPEID_UNIT)
             { StartLootRoll(pSource, NEED_BEFORE_GREED, loot, itemSlot); }
         else
             { lootItem.is_underthreshold = 1; }
@@ -779,7 +779,7 @@ void Group::EndRoll()
 void Group::CountTheRoll(Rolls::iterator& rollI)
 {
     Roll* roll = *rollI;
-	
+
 
     if (!roll->isValid())                                   // is loot already deleted ?
     {
@@ -823,22 +823,22 @@ void Group::CountTheRoll(Rolls::iterator& rollI)
                     item->is_looted = true;
                     roll->getLoot()->NotifyItemRemoved(roll->itemSlot);
                     --roll->getLoot()->unlootedCount;
-                    Item* newitem = player->StoreNewItem(dest, roll->itemid, true, item->randomPropertyId);					
-					player->SendNewItem(newitem, uint32(item->count), false, false, true);
+                    Item* newitem = player->StoreNewItem(dest, roll->itemid, true, item->randomPropertyId);
+                    player->SendNewItem(newitem, uint32(item->count), false, false, true);
 
-					/// Warn players about the loot status on the corpse.
-					Creature * creature = player->GetMap()->GetCreature(roll->lootedTargetGUID);
-					/// If creature has been fully looted, remove flag.
-					if (creature->loot.isLooted())
-					{
-						creature->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
-					}
+                    /// Warn players about the loot status on the corpse.
+                    Creature * creature = player->GetMap()->GetCreature(roll->lootedTargetGUID);
+                    /// If creature has been fully looted, remove flag.
+                    if (creature->loot.isLooted())
+                    {
+                        creature->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
+                    }
                 }
                 else
                 {
                     item->is_blocked = false;
                     player->SendEquipError(msg, NULL, NULL, roll->itemid);
-					item->winner = player->GetObjectGuid();
+                    item->winner = player->GetObjectGuid();
                 }
             }
         }
@@ -878,25 +878,25 @@ void Group::CountTheRoll(Rolls::iterator& rollI)
                 {
                     item->is_looted = true;
                     roll->getLoot()->NotifyItemRemoved(roll->itemSlot);
-                    --roll->getLoot()->unlootedCount;					
+                    --roll->getLoot()->unlootedCount;
                     Item* newitem = player->StoreNewItem(dest, roll->itemid, true, item->randomPropertyId);
-					player->SendNewItem(newitem, uint32(item->count), false, false, true);
+                    player->SendNewItem(newitem, uint32(item->count), false, false, true);
 
-					/// Warn players about the loot status on the corpse.
-					Creature * creature = player->GetMap()->GetCreature(roll->lootedTargetGUID);
-					/// If creature has been fully looted, remove flag.
-					if (creature->loot.isLooted())
-					{
-						creature->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
-					}
+                    /// Warn players about the loot status on the corpse.
+                    Creature * creature = player->GetMap()->GetCreature(roll->lootedTargetGUID);
+                    /// If creature has been fully looted, remove flag.
+                    if (creature->loot.isLooted())
+                    {
+                        creature->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
+                    }
                 }
                 else
                 {
                     item->is_blocked = false;
                     player->SendEquipError(msg, NULL, NULL, roll->itemid);
 
-					// Storing the winner to recall in LootView.
-					item->winner = player->GetObjectGuid();
+                    // Storing the winner to recall in LootView.
+                    item->winner = player->GetObjectGuid();
                 }
             }
         }
@@ -914,19 +914,19 @@ void Group::CountTheRoll(Rolls::iterator& rollI)
 
 bool Group::IsRollDoneForItem(Creature * pCreature, const LootItem * pItem)
 {
-	if(RollId.empty())
-		{ return true; }
+    if(RollId.empty())
+        { return true; }
 
-	Roll * roll;
+    Roll * roll;
 
-	for(Rolls::iterator i = RollId.begin(); i != RollId.end(); i++)
-	{
-		roll = *i;
-		if(roll->lootedTargetGUID == pCreature->GetObjectGuid() && roll->itemid == pItem->itemid && roll->totalPlayersRolling > 1)
-			{ return false; }
-	}
+    for(Rolls::iterator i = RollId.begin(); i != RollId.end(); i++)
+    {
+        roll = *i;
+        if(roll->lootedTargetGUID == pCreature->GetObjectGuid() && roll->itemid == pItem->itemid && roll->totalPlayersRolling > 1)
+            { return false; }
+    }
 
-	return true;
+    return true;
 }
 
 void Group::SetTargetIcon(uint8 id, ObjectGuid targetGuid)
@@ -1149,7 +1149,7 @@ bool Group::_addMember(ObjectGuid guid, const char* name, bool isAssistant, uint
     member.name      = name;
     member.group     = group;
     member.assistant = isAssistant;
-	member.joinTime = time(NULL);
+    member.joinTime = time(NULL);
     m_memberSlots.push_back(member);
 
     SubGroupCounterIncrease(group);
@@ -1272,7 +1272,7 @@ void Group::_setLeader(ObjectGuid guid)
                         m_boundInstances[i].erase(itr++);
                     }
                     else
-                        ++itr;
+                        { ++itr; }
                 }
             }
         }
@@ -1794,7 +1794,7 @@ static void RewardGroupAtKill_helper(Player* pGroupGuy, Unit* pVictim, uint32 co
             // normal creature (not pet/etc) can be only in !PvP case
             if (pVictim->GetTypeId() == TYPEID_UNIT)
                 if (CreatureInfo const* normalInfo = ObjectMgr::GetCreatureTemplate(pVictim->GetEntry()))
-                    pGroupGuy->KilledMonster(normalInfo, pVictim->GetObjectGuid());
+                    { pGroupGuy->KilledMonster(normalInfo, pVictim->GetObjectGuid()); }
         }
     }
 }

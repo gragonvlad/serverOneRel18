@@ -217,7 +217,7 @@ enum UnitBytes2_Flags
     UNIT_BYTE2_FLAG_UNK1        = 0x02,
     UNIT_BYTE2_FLAG_UNK2        = 0x04,
     UNIT_BYTE2_FLAG_UNK3        = 0x08,
-    UNIT_BYTE2_FLAG_AURAS       = 0x10,                     // show possitive auras as positive, and allow its dispel
+    UNIT_BYTE2_FLAG_AURAS       = 0x10,                     // show positive auras as positive, and allow its dispel
     UNIT_BYTE2_FLAG_UNK5        = 0x20,
     UNIT_BYTE2_FLAG_UNK6        = 0x40,
     UNIT_BYTE2_FLAG_UNK7        = 0x80
@@ -651,9 +651,9 @@ enum NPCFlags
 enum MovementFlags
 {
     // Byte 1 (Resets on Movement Key Press)
-    MOVEFLAG_NONE               = 0x00000000,
-    MOVEFLAG_MOVE_FORWARD            = 0x00000001,
-    MOVEFLAG_MOVE_BACKWARD           = 0x00000002,
+    MOVEFLAG_NONE                   = 0x00000000,
+    MOVEFLAG_MOVE_FORWARD           = 0x00000001,           /// verified
+    MOVEFLAG_MOVE_BACKWARD          = 0x00000002,           /// verified
     MOVEFLAG_STRAFE_LEFT            = 0x00000004,           /// verified
     MOVEFLAG_STRAFE_RIGHT           = 0x00000008,           /// verified
     MOVEFLAG_TURN_LEFT              = 0x00000010,           /// verified
@@ -663,9 +663,9 @@ enum MovementFlags
 
     // Byte 2 (Resets on Situation Change)
     MOVEFLAG_WALK_MODE              = 0x00000100,           /// verified
-    MOVEFLAG_ONTRANSPORT        = 0x00000200,               // Used for flying on some creatures
-    MOVEFLAG_LEVITATE         = 0x00000400,
-    MOVEFLAG_IMMOBILIZED               = 0x00000800,
+    MOVEFLAG_ONTRANSPORT            = 0x00000200,               // Used for flying on some creatures
+    MOVEFLAG_LEVITATE               = 0x00000400,
+    MOVEFLAG_IMMOBILIZED            = 0x00000800,
     MOVEFLAG_FALLING            = 0x00001000,
     MOVEFLAG_FALLINGFAR         = 0x00004000,
     MOVEFLAG_SWIMMING           = 0x00200000,               // appears with fly flag also
@@ -1693,7 +1693,7 @@ class MANGOS_DLL_SPEC Unit : public WorldObject
          */
         Powers GetPowerType() const { return Powers(GetByteValue(UNIT_FIELD_BYTES_0, 3)); }
         void SetPowerType(Powers power);
-        uint32 GetPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_POWER1   + power); }
+        uint32 GetPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_POWER1 + power); }
         uint32 GetMaxPower(Powers power) const { return GetUInt32Value(UNIT_FIELD_MAXPOWER1 + power); }
         void SetPower(Powers power, uint32 val);
         void SetMaxPower(Powers power, uint32 val);
@@ -2773,6 +2773,7 @@ class MANGOS_DLL_SPEC Unit : public WorldObject
          * @param triggeredByAura the \ref Aura that triggered this
          * @param originalCaster the original caster if any
          * @param triggeredBy the \ref SpellEntry that triggered this cast, if any
+         * @param calculateDamage Indicates whether the damage calculation must be performed (in some cases, the calculation has already been executed).
          * \todo What's the original caster?
          */
         void CastCustomSpell(Unit* Victim, SpellEntry const* spellInfo, int32 const* bp0, int32 const* bp1, int32 const* bp2, bool triggered, Item* castItem = NULL, Aura* triggeredByAura = NULL, ObjectGuid originalCaster = ObjectGuid(), SpellEntry const* triggeredBy = NULL);

@@ -314,7 +314,18 @@ void MailDraft::SendMailTo(MailReceiver const& receiver, MailSender const& sende
     }
     // default case: expire time if COD 3 days, if no COD 30 days
     else
-        { expire_delay = (m_COD > 0) ? 3 * DAY : 30 * DAY; }
+    {
+        if (m_COD)
+        {
+            // COD Mail Expire Timer
+            expire_delay = 3 * DAY;
+        }
+        else
+        {
+            // Normal Mail Expire Timer
+            expire_delay = 30 * DAY;
+        }
+    }
 
     time_t expire_time = deliver_time + expire_delay;
 

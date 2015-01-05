@@ -177,7 +177,10 @@ enum SummonPropFlags
     SUMMON_PROP_FLAG_UNK3               = 0x0004,           // no idea...
 };
 
-// SpellEntry::Targets
+/**
+ * See \ref SpellEntry::Targets member for some use of these flags
+ * \todo Properly document this
+ */
 enum SpellCastTargetFlags
 {
     TARGET_FLAG_SELF            = 0x00000000,
@@ -218,7 +221,7 @@ enum SpellEffectIndex
 enum SpellFamily
 {
     SPELLFAMILY_GENERIC     = 0,
-    SPELLFAMILY_UNK1        = 1,                            // events, holidays
+    SPELLFAMILY_ENVIRONMENT = 1,                            // events, holidays, mostly aura related spells
     // 2 - unused
     SPELLFAMILY_MAGE        = 3,
     SPELLFAMILY_WARRIOR     = 4,

@@ -597,9 +597,8 @@ int WorldSocket::ProcessIncoming(WorldPacket* new_pct)
     // Used by Eluna
 #ifdef ENABLE_ELUNA
                 sEluna->OnPacketReceive(m_Session, *new_pct);
-                return 0;
 #endif /* ENABLE_ELUNA */
-
+                return 0;
             default:
             {
                 ACE_GUARD_RETURN(LockType, Guard, m_SessionLock, -1);
@@ -933,11 +932,11 @@ int WorldSocket::iSendPacket(const WorldPacket& pct)
     ServerPktHeader header;
 
     header.cmd = pct.GetOpcode();
-    EndianConvert(header.cmd);
 
     header.size = (uint16) pct.size() + 2;
 
     EndianConvertReverse(header.size);
+    EndianConvert(header.cmd);
 
     m_Crypt.EncryptSend((uint8*) & header, sizeof(header));
 

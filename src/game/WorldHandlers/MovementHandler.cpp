@@ -44,7 +44,7 @@
 uint32 mTimeStamp()
 {
     /* We subtract 20 years from the epoch so that it doesn't overflow uint32
-    * TODO: Remember to update code in 20 years */
+     * TODO: Remember to update code in 20 years */
     const uint32 YEAR_IN_SECONDS = 31556952;
 
     FILETIME ft;
@@ -314,7 +314,23 @@ void WorldSession::HandleMovementOpcodes(WorldPacket& recv_data)
     {
         m_clientTimeDelay = mstime - movementInfo.GetTime();
     }
-    
+
+    /* if(movementInfo.GetTime() - (mstime + m_clientTimeDelay) < 0)
+    {
+        move_time = mstime + 500;
+        move_time -= (movementInfo.GetTime() - (mstime + m_clientTimeDelay));
+        movementInfo.UpdateTime(move_time);
+    }
+    else
+    {
+    int calc_var = (movementInfo.GetTime() - (mstime + m_clientTimeDelay));
+    if(calc_var < 0)
+    {
+        calc_var *= -1;
+    }
+    calc_var += 500 + mstime;
+    move_time = calc_var; */
+
     move_time = (movementInfo.GetTime() - (mstime - m_clientTimeDelay)) + 500 + mstime;
     movementInfo.UpdateTime(move_time);
 
@@ -332,8 +348,8 @@ void WorldSession::HandleMovementOpcodes(WorldPacket& recv_data)
         { plMover->UpdateFallInformationIfNeed(movementInfo, opcode); }
 
     WorldPacket data(opcode, uint16(recv_data.size() + 2));
-    data << mover->GetPackGUID();           // write guid
-    movementInfo.Write(data);               // write data
+    data << mover->GetPackGUID();             // write guid
+    movementInfo.Write(data);                               // write data
     mover->SendMessageToSetExcept(&data, _player);
 }
 

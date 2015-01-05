@@ -560,7 +560,7 @@ uint32 WorldSession::getDialogStatus(Player* pPlayer, Object* questgiver, uint32
             if (pQuest->IsAutoComplete() && pQuest->IsRepeatable())
                 { dialogStatusNew = DIALOG_STATUS_REWARD_REP; }
             else
-                dialogStatusNew = DIALOG_STATUS_REWARD;
+                { dialogStatusNew = DIALOG_STATUS_REWARD; }
         }
         else if (status == QUEST_STATUS_INCOMPLETE)
             { dialogStatusNew = DIALOG_STATUS_INCOMPLETE; }

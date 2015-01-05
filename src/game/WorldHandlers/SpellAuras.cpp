@@ -250,7 +250,7 @@ pAuraHandler AuraHandler[TOTAL_AURAS] =
     &Aura::HandleNoImmediateEffect,                         // 186 SPELL_AURA_MOD_ATTACKER_SPELL_HIT_CHANCE  implemented in Unit::MagicSpellHitResult
     &Aura::HandleNoImmediateEffect,                         // 187 SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_CHANCE  implemented in Unit::GetUnitCriticalChance
     &Aura::HandleNoImmediateEffect,                         // 188 SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_CHANCE implemented in Unit::GetUnitCriticalChance
-    &Aura::HandleModRating,                                 //189 SPELL_AURA_MOD_RATING
+    &Aura::HandleModRating,                                 // 189 SPELL_AURA_MOD_RATING
     &Aura::HandleNoImmediateEffect,                         // 190 SPELL_AURA_MOD_FACTION_REPUTATION_GAIN     implemented in Player::CalculateReputationGain
     &Aura::HandleAuraModUseNormalSpeed,                     // 191 SPELL_AURA_USE_NORMAL_MOVEMENT_SPEED
     &Aura::HandleModMeleeRangedSpeedPct,                    //192 SPELL_AURA_MOD_MELEE_RANGED_HASTE
@@ -5276,7 +5276,7 @@ void Aura::HandleAuraModRangedHaste(bool apply, bool /*Real*/)
 void Aura::HandleRangedAmmoHaste(bool apply, bool /*Real*/)
 {
     if (GetTarget()->GetTypeId() != TYPEID_PLAYER)
-        return;
+        { return; }
     GetTarget()->ApplyAttackTimePercentMod(RANGED_ATTACK, float(m_modifier.m_amount), apply);
 }
 
@@ -5292,7 +5292,7 @@ void Aura::HandleAuraModAttackPower(bool apply, bool /*Real*/)
 void Aura::HandleAuraModRangedAttackPower(bool apply, bool /*Real*/)
 {
     if ((GetTarget()->getClassMask() & CLASSMASK_WAND_USERS) != 0)
-        return;
+        { return; }
 
     GetTarget()->HandleStatModifier(UNIT_MOD_ATTACK_POWER_RANGED, TOTAL_VALUE, float(m_modifier.m_amount), apply);
 }
@@ -5306,7 +5306,7 @@ void Aura::HandleAuraModAttackPowerPercent(bool apply, bool /*Real*/)
 void Aura::HandleAuraModRangedAttackPowerPercent(bool apply, bool /*Real*/)
 {
     if ((GetTarget()->getClassMask() & CLASSMASK_WAND_USERS) != 0)
-        return;
+        { return; }
 
     // UNIT_FIELD_RANGED_ATTACK_POWER_MULTIPLIER = multiplier - 1
     GetTarget()->HandleStatModifier(UNIT_MOD_ATTACK_POWER_RANGED, TOTAL_PCT, float(m_modifier.m_amount), apply);
@@ -7020,9 +7020,11 @@ void SpellAuraHolder::_RemoveSpellAuraHolder()
     Unit* caster = GetCaster();
 
     if (caster && IsPersistent())
-        if (DynamicObject* dynObj = caster->GetDynObject(GetId()))
+    {
+        DynamicObject* dynObj = caster->GetDynObject(GetId());
+        if (dynObj)
             { dynObj->RemoveAffected(m_target); }
-
+    }
     // remove at-store spell cast items (for all remove modes?)
     if (m_target->GetTypeId() == TYPEID_PLAYER && m_removeMode != AURA_REMOVE_BY_DEFAULT && m_removeMode != AURA_REMOVE_BY_DELETE)
         if (ObjectGuid castItemGuid = GetCastItemGuid())

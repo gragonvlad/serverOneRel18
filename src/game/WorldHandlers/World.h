@@ -61,7 +61,7 @@ enum ServerMessageType
 enum ShutdownMask
 {
     SHUTDOWN_MASK_RESTART = 1,
-	SHUTDOWN_MASK_STOP    = 2,
+    SHUTDOWN_MASK_STOP    = 2,
     SHUTDOWN_MASK_IDLE    = 4,
 };
 
@@ -565,7 +565,7 @@ class World
 
         void KickAll();
         void KickAllLess(AccountTypes sec);
-        BanReturn BanAccount(BanMode mode, std::string nameOrIP, uint32 duration_secs, std::string reason, std::string author);
+        BanReturn BanAccount(BanMode mode, std::string nameOrIP, uint32 duration_secs, std::string reason, const std::string &author);
         bool RemoveBanAccount(BanMode mode, std::string nameOrIP);
 
         // for max speed access

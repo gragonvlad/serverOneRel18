@@ -646,7 +646,7 @@ bool GridMap::ExistMap(uint32 mapid, int gx, int gy)
 
     if (!pf)
     {
-        sLog.outError("Check existing of map file '%s': not exist!", tmp);
+        sLog.outError("Please check for the existence of map file '%s'", tmp);
         delete[] tmp;
         return false;
     }
