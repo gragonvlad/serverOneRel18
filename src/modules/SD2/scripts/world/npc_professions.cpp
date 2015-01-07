@@ -855,9 +855,15 @@ bool GossipSelect_npc_prof_leather(Player* pPlayer, Creature* pCreature, uint32 
 {
     switch (uiSender)
     {
-        case GOSSIP_SENDER_MAIN:    SendActionMenu_npc_prof_leather(pPlayer, pCreature, uiAction); break;
-        case GOSSIP_SENDER_UNLEARN: SendConfirmUnlearn_npc_prof_leather(pPlayer, pCreature, uiAction); break;
-        case GOSSIP_SENDER_CHECK:   SendActionMenu_npc_prof_leather(pPlayer, pCreature, uiAction); break;
+        case GOSSIP_SENDER_MAIN:
+            SendActionMenu_npc_prof_leather(pPlayer, pCreature, uiAction);
+            break;
+        case GOSSIP_SENDER_UNLEARN:
+            SendConfirmUnlearn_npc_prof_leather(pPlayer, pCreature, uiAction);
+            break;
+        case GOSSIP_SENDER_CHECK:
+            SendActionMenu_npc_prof_leather(pPlayer, pCreature, uiAction);
+            break;
     }
     return true;
 }

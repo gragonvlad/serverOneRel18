@@ -39,8 +39,8 @@
 
 /**
  * ContentData
- * npc_air_force_bots          80%    support for misc (invisible) guard bots in areas where player allowed to fly. Summon guards after a preset time if tagged by spell
  * npc_chicken_cluck          100%    support for quest 3861 (Cluck!)
+ * npc_air_force_bots          80%    support for misc (invisible) guard bots in areas where player allowed to fly. Summon guards after a preset time if tagged by spell
  * npc_dancing_flames         100%    midsummer event NPC
  * npc_guardian               100%    guardianAI used to prevent players from accessing off-limits areas. Not in use by SD2
  * npc_garments_of_quests     100%    NPC's related to all Garments of-quests 5621, 5624, 5625, 5648, 5650
