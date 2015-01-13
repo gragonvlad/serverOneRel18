@@ -5,20 +5,19 @@
 [![](/icons/TRACKER.gif)](https://www.getmangos.eu/project.php)
 [![Build status](https://travis-ci.org/mangosone/server.png)][16]
 
-MangosOne 
+Mangos
 ===
-DEVELOPMENT BRANCH
+THE BURNING CRUSADE BRANCH
 ===
- **(Please be aware that this branch is a Work in Progress)**
 ### A World of Warcraft server for the WOW Expansion The Burning Crusade
 ----
-*MangosOne* is open source project, built in [C++][7], it's fast, runs on multiple,
+*Mangos* is open source project, built in [C++][7], it's fast, runs on multiple
 platforms, can store game data in [MySQL][40] and [PostgreSQL][42]. It also has
-optional support for SOAP, and aims to be 100% compatible with [World of Warcraft][2] in its
-TBC version, namely [patch 2.4.3][4].
+optional support for SOAP, and aims to be 100% compatible with [World of Warcraft][2]
+in its TBC version, namely [patch 2.4.3][4].
 
 If you liked the second incarnation of [World of Warcraft][2] and still want to play
-[The Burning Crusade][4], you should try *MangosOne*. We provide an authentication
+[The Burning Crusade][4], this is the branch for you. We provide an authentication
 server where you can manage your users, and a world server which serves game
 content just like the original did back then.
 
@@ -32,14 +31,14 @@ copyrighted by [Blizzard Entertainment, Inc.][1]
 
 Requirements
 ------------
-*MangosOne* server supports a wide range of operating systems, and various
+The *Mangos* server supports a wide range of operating systems, and various
 compiler platforms. In order to do that, we use various free cross-platform
 libraries and use [CMake][19] to provide a cross-platform build system which
 adapts to your chosen operating system and compiler.
 
 Operating systems
 -----------------
-Currently we support running *MangosOne* on these operating systems:
+Currently we support running *Mangos* on these operating systems:
 
 * **Windows**, 32 bit and 64 bit. [Windows][20] 7 or newer is recommended.
 * **Linux**, 32 bit and 64 bit. [Debian 7][21] and [Ubuntu 12.04 LTS][22] are
@@ -47,12 +46,12 @@ Currently we support running *MangosOne* on these operating systems:
 * **BSD**, 32 bit and 64 bit. [FreeBSD][23], [NetBSD][24], [OpenBSD][25] and
   [DragonFly][26] are recommended.
 
-Of course, newer versions should work, too. In case of Windows, matching
-server version will work, too.
+Of course, newer versions should work, too. In the case of Windows, matching
+server versions will work, too.
 
 Compilers
 ---------
-Building *MangosOne* is currently possible with these compilers:
+Building *Mangos* is currently possible with these compilers:
 
 * **Microsoft Visual Studio (Express[^1])**, 32 bit and 64 bit. Both
   [Visual Studio][30] and the Express editions of [Visual Studio][31]
@@ -65,7 +64,7 @@ Building *MangosOne* is currently possible with these compilers:
 
 Dependencies
 ------------
-*MangosOne* server stands on the shoulders of well-known Open Source
+The *Mangos* server stands on the shoulders of well-known Open Source
 libraries, and a few awesome, but less known libraries to prevent us from
 inventing the wheel again.
 
@@ -94,23 +93,23 @@ their systems package management instead of source packages.*
   scripting environment, which allows us to make live changes to scripted
   content.
 
-*Recast*, *G3D* and *libmpq* are included in the *MangosOne* distribution as
+*Recast*, *G3D* and *libmpq* are included in the *Mangos* distribution as
 we rely on specific versions.
 
 Optional dependencies
 ---------------------
 
 * **Doxygen**: if you want to export HTML or PDF formatted documentation for the
-  *MangosOne* API, you should install [Doxygen][49].
-* **Lua**: if you want to test drive how *MangosZero* feels with [Lua][50] as
+  *Mangos* API, you should install [Doxygen][49].
+* **Lua**: if you want to test drive how *Mangos* feels with [Lua][50] as
   scripting language instead of the scripting library, you will need Lua **5.2.3**
-  installed.
+  installed. Although an internal version is included.
 
 Discuss
 -------
-If you need help with building and installing *MangosOne* there is thousands
-of users out there already running *MangosOne* and many you can find on our
-project website and discussion forum
+If you need help with building and installing *Mangos* there are thousands of
+users out there already running *Mangos* and many more you can find on our
+project website and discussion forum to assist with any issues you may have.
 
 * [getmangos.eu][10]
 
