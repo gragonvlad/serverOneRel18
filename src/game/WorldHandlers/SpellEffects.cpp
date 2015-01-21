@@ -6216,6 +6216,7 @@ bool Spell::DoSummonPossessed(SpellEffectIndex eff_idx, uint32 forceFaction)
     if (Unit* summoner = m_originalCaster->ToUnit())
         sEluna->OnSummoned(spawnCreature, summoner);
 #endif /* ENABLE_ELUNA */
+    return true;
 }
 
 void Spell::EffectEnchantHeldItem(SpellEffectIndex eff_idx)
