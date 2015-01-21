@@ -301,11 +301,11 @@ void BattleGroundAV::EndBattleGround(Team winner)
     for (BG_AV_Nodes i = BG_AV_NODES_DUNBALDAR_SOUTH; i <= BG_AV_NODES_STONEHEART_BUNKER; ++i)
         if (m_Nodes[i].State == POINT_CONTROLLED)
             if (m_Nodes[i].TotalOwner == BG_AV_TEAM_ALLIANCE)
-                ++tower_survived[TEAM_INDEX_ALLIANCE];
+                { ++tower_survived[TEAM_INDEX_ALLIANCE]; }
     for (BG_AV_Nodes i = BG_AV_NODES_ICEBLOOD_TOWER; i <= BG_AV_NODES_FROSTWOLF_WTOWER; ++i)
         if (m_Nodes[i].State == POINT_CONTROLLED)
             if (m_Nodes[i].TotalOwner == BG_AV_TEAM_HORDE)
-                ++tower_survived[TEAM_INDEX_HORDE];
+                { ++tower_survived[TEAM_INDEX_HORDE]; }
 
     // graves all controlled
     for (BG_AV_Nodes i = BG_AV_NODES_FIRSTAID_STATION; i < BG_AV_NODES_MAX; ++i)

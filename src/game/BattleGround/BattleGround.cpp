@@ -747,7 +747,7 @@ void BattleGround::EndBattleGround(Team winner)
     if (winner == ALLIANCE)
     {
         winmsg_id = isBattleGround() ? LANG_BG_A_WINS : LANG_ARENA_GOLD_WINS;
-        PlaySoundToAll(SOUND_ALLIANCE_WINS);
+        PlaySoundToAll(SOUND_ALLIANCE_WINS);                // alliance wins sound
 
         // reversed index for the bg score storage system
         bgScoresWinner = TEAM_INDEX_HORDE;
@@ -755,7 +755,7 @@ void BattleGround::EndBattleGround(Team winner)
     else if (winner == HORDE)
     {
         winmsg_id = isBattleGround() ? LANG_BG_H_WINS : LANG_ARENA_GREEN_WINS;
-        PlaySoundToAll(SOUND_HORDE_WINS);
+        PlaySoundToAll(SOUND_HORDE_WINS);                   // horde wins sound
 
         // reversed index for the bg score storage system
         bgScoresWinner = TEAM_INDEX_ALLIANCE;

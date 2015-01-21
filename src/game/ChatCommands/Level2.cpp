@@ -3919,7 +3919,7 @@ bool ChatHandler::HandleHonorAddKillCommand(char* /*args*/)
 
     // check online security
     if (target->GetTypeId() == TYPEID_PLAYER && HasLowerSecurity((Player*)target))
-        return false;
+        { return false; }
 
     m_session->GetPlayer()->RewardHonor(target, 1);
     return true;

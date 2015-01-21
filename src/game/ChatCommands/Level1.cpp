@@ -170,26 +170,33 @@ bool ChatHandler::HandleGMCommand(char* args)
         return true;
     }
 
-    bool value;
-    if (!ExtractOnOff(&args, value))
-    {
-        SendSysMessage(LANG_USE_BOL);
-        SetSentErrorMessage(true);
-        return false;
-    }
+    std::string argstr = (char*)args;
 
-    if (value)
+    if (argstr == "on")
     {
         m_session->GetPlayer()->SetGameMaster(true);
         m_session->SendNotification(LANG_GM_ON);
+#ifdef _DEBUG_VMAPS
+        VMAP::IVMapManager *vMapManager = VMAP::VMapFactory::createOrGetVMapManager();
+        vMapManager->processCommand("stoplog");
+#endif
+        return true;
     }
-    else
+
+    if (argstr == "off")
     {
         m_session->GetPlayer()->SetGameMaster(false);
         m_session->SendNotification(LANG_GM_OFF);
+#ifdef _DEBUG_VMAPS
+        VMAP::IVMapManager *vMapManager = VMAP::VMapFactory::createOrGetVMapManager();
+        vMapManager->processCommand("startlog");
+#endif
+        return true;
     }
 
-    return true;
+    SendSysMessage(LANG_USE_BOL);
+    SetSentErrorMessage(true);
+    return false;
 }
 
 // Enables or disables hiding of the staff badge
@@ -1582,9 +1589,9 @@ bool ChatHandler::HandleLookupAreaCommand(char* args)
     wstrToLower(wnamepart);
 
     // Search in AreaTable.dbc
-    for (uint32 areaflag = 0; areaflag < sAreaStore.GetNumRows(); ++areaflag)
+    for (uint32 areaid = 0; areaid <= sAreaStore.GetNumRows(); ++areaid)
     {
-        AreaTableEntry const* areaEntry = sAreaStore.LookupEntry(areaflag);
+        AreaTableEntry const* areaEntry = sAreaStore.LookupEntry(areaid);
         if (areaEntry)
         {
             int loc = GetSessionDbcLocale();

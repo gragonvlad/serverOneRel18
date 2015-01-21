@@ -301,7 +301,7 @@ void WorldSession::HandlePVPLogDataOpcode(WorldPacket & /*recv_data*/)
 
     BattleGround* bg = _player->GetBattleGround();
     if (!bg)
-        return;
+        { return; }
 
     // arena finish version will send in BattleGround::EndBattleGround directly
     if (bg->isArena())
@@ -356,7 +356,6 @@ void WorldSession::HandleBattleFieldPortOpcode(WorldPacket& recv_data)
         sLog.outError("BattlegroundHandler: Invalid CMSG_BATTLEFIELD_PORT received from player (%u), arena type wrong: %u.", _player->GetGUIDLow(), type);
         return;
     }
-
     if (!_player->InBattleGroundQueue())
     {
         sLog.outError("BattlegroundHandler: Invalid CMSG_BATTLEFIELD_PORT received from player (%u), he is not in bg_queue.", _player->GetGUIDLow());

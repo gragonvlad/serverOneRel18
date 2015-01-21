@@ -340,11 +340,10 @@ class BattleGroundScore
         virtual uint32 GetAttr3() const     { return 0; }
         virtual uint32 GetAttr4() const     { return 0; }
         virtual uint32 GetAttr5() const     { return 0; }
-
-        uint32 KillingBlows;
-        uint32 Deaths;
-        uint32 HonorableKills;
-        uint32 BonusHonor;
+        uint32 KillingBlows; /**< TODO */
+        uint32 Deaths; /**< TODO */
+        uint32 HonorableKills; /**< TODO */
+        uint32 BonusHonor; /**< TODO */
         uint32 DamageDone;
         uint32 HealingDone;
 };
@@ -492,6 +491,11 @@ class BattleGround
          */
         int32 GetStartDelayTime() const     { return m_StartDelayTime; }
         ArenaType GetArenaType() const          { return m_ArenaType; }
+        /**
+         * @brief
+         *
+         * @return Team
+         */
         Team GetWinner() const              { return m_Winner; }
         /**
          * @brief
@@ -572,6 +576,11 @@ class BattleGround
         void SetRated(bool state)           { m_IsRated = state; }
         void SetArenaType(ArenaType type)   { m_ArenaType = type; }
         void SetArenaorBGType(bool _isArena) { m_IsArena = _isArena; }
+        /**
+         * @brief
+         *
+         * @param winner
+         */
         void SetWinner(Team winner)         { m_Winner = winner; }
 
         /**
@@ -654,6 +663,10 @@ class BattleGround
         bool isBattleGround() const { return !m_IsArena; }
         bool isRated() const        { return m_IsRated; }
 
+        /**
+         * @brief
+         *
+         */
         typedef std::map<ObjectGuid, BattleGroundPlayer> BattleGroundPlayerMap;
         /**
          * @brief
