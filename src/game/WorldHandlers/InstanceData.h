@@ -53,7 +53,7 @@ enum InstanceConditionIDs                                   // Suggested values 
     INSTANCE_CONDITION_ID_SCALDING_WATER    = 37284,
 };
 
-class MANGOS_DLL_SPEC InstanceData
+class  InstanceData
 {
     public:
 
