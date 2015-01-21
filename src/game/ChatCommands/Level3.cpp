@@ -4767,21 +4767,47 @@ bool ChatHandler::HandleServerShutDownCommand(char* args)
 
 bool ChatHandler::HandleServerRestartCommand(char* args)
 {
-    uint32 delay;
-    if (!ExtractUInt32(&args, delay))
-        { return false; }
+    if (!*args)
+    {
+        return false;
+    }
 
-    uint32 exitcode;
-    if (!ExtractOptUInt32(&args, exitcode, RESTART_EXIT_CODE))
-        { return false; }
+    char* timeStr = strtok((char*)args, " ");
+    char* exitCodeStr = strtok(NULL, "");
 
-    // Exit code should be in range of 0-125, 126-255 is used
-    // in many shells for their own return codes and code > 255
-    // is not supported in many others
-    if (exitcode > 125)
-        { return false; }
+    int32 time = atoi(timeStr);
 
-    sWorld.ShutdownServ(delay, SHUTDOWN_MASK_RESTART, exitcode);
+    //  Prevent interpret wrong arg value as 0 secs shutdown time
+    if ((time == 0 && (timeStr[0] != '0' || timeStr[1] != '\0')) || time < 0)
+    {
+        return false;
+    }
+
+    if (exitCodeStr)
+    {
+        int32 exitCode = atoi(exitCodeStr);
+
+        // Handle atoi() errors
+        if (exitCode == 0 && (exitCodeStr[0] != '0' || exitCodeStr[1] != '\0'))
+        {
+            return false;
+        }
+
+        // Exit code should be in range of 0-125, 126-255 is used
+        // in many shells for their own return codes and code > 255
+        // is not supported in many others
+        if (exitCode < 0 || exitCode > 125)
+        {
+            return false;
+        }
+
+        sWorld.ShutdownServ(time, SHUTDOWN_MASK_RESTART, exitCode);
+    }
+    else
+    {
+        sWorld.ShutdownServ(time, SHUTDOWN_MASK_RESTART, RESTART_EXIT_CODE);
+    }
+
     return true;
 }
 
