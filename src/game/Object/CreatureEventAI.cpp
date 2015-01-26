@@ -133,16 +133,22 @@ CreatureEventAI::CreatureEventAI(Creature* c) : CreatureAI(c),
                 if (i->event_flags & EFLAG_DEBUG_ONLY)
                     { continue; }
 #endif
+                bool storeEvent = false;
                 if (m_creature->GetMap()->IsDungeon())
                 {
                     if ((1 << (m_creature->GetMap()->GetSpawnMode() + 1)) & i->event_flags)
-                    {
-                        // event flagged for instance mode
-                        m_CreatureEventAIList.push_back(CreatureEventAIHolder(*i));
-                    }
+                        storeEvent = true;
                 }
                 else if (IsEventFlagsFitForNormalMap(i->event_flags))
+                    { storeEvent = true; }
+
+                if (storeEvent)
+                {
                     m_CreatureEventAIList.push_back(CreatureEventAIHolder(*i));
+                    // Cache for fast use
+                    if (i->event_type == EVENT_T_OOC_LOS)
+                        { m_HasOOCLoSEvent = true; }
+                }
             }
         }
     }
