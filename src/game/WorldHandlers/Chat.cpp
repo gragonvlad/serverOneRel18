@@ -957,6 +957,7 @@ void ChatHandler::SendGlobalSysMessage(const char* str)
     // need copy to prevent corruption by strtok call in LineFromMessage original string
     char* buf = mangos_strdup(str);
     char* pos = buf;
+    ObjectGuid senderGuid = m_session ? m_session->GetPlayer()->GetObjectGuid() : ObjectGuid();
 
     while (char* line = LineFromMessage(pos))
     {
