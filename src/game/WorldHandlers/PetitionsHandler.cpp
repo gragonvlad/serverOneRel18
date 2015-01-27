@@ -839,8 +839,8 @@ void WorldSession::HandleTurnInPetitionOpcode(WorldPacket& recv_data)
             Field* fields = result->Fetch();
 
             ObjectGuid signGuid = ObjectGuid(HIGHGUID_PLAYER, fields[0].GetUInt32());
-            if (!signGuid)
-                continue;
+            if (signGuid.IsEmpty())
+                { continue; }
 
             guild->AddMember(signGuid, guild->GetLowestRank());
             result->NextRow();

@@ -724,6 +724,7 @@ bool IsPositiveEffect(SpellEntry const* spellproto, SpellEffectIndex effIndex)
                     switch (spellproto->Id)
                     {
                         case 13139:                         // net-o-matic special effect
+                        case 18172:                         // Quest Kodo Roundup player debuff
                         case 23445:                         // evil twin
                         case 35679:                         // Protectorate Demolitionist
                         case 38637:                         // Nether Exhaustion (red)
@@ -1803,6 +1804,35 @@ void SpellMgr::LoadSpellThreats()
 
     sLog.outString(">> Loaded %u spell threat entries", rankHelper.worker.count);
     sLog.outString();
+}
+
+void SpellMgr::ModDBCSpellAttributes()
+{
+    SpellEntry* spellInfo;
+
+    // Hardcoded list for modified spell.
+    std::list<uint32> list_spell_id;
+    uint32 spell_id;
+
+    list_spell_id.push_back(20647);
+
+    for (std::list<uint32>::iterator it = list_spell_id.begin(); it != list_spell_id.end(); ++it)
+    {
+        spell_id = *it;
+        spellInfo = (SpellEntry*)GetSpellStore()->LookupEntry(spell_id);
+        if (!spellInfo)
+            continue;
+
+        switch(spell_id)
+        {
+            // Execute spell id 20647 is used to actually notify the client of the damage done.
+            // If MeleeSpellHitResult method is executed for this spell id, it means that the spellId sent by the client for execute did already passed.
+            case 20647:
+                spellInfo->Attributes |= SPELL_ATTR_IMPOSSIBLE_DODGE_PARRY_BLOCK;
+                spellInfo->AttributesEx3 |= SPELL_ATTR_EX3_CANT_MISS;                
+                break;
+        }
+    }
 }
 
 bool SpellMgr::IsRankSpellDueToSpell(SpellEntry const* spellInfo_1, uint32 spellId_2) const

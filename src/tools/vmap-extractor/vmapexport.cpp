@@ -408,35 +408,41 @@ bool processArgv(int argc, char** argv)
     bool result = true;
     bool hasInputPathParam = false;
     bool preciseVectorData = false;
+    char* param = NULL;
 
     for (int i = 1; i < argc; ++i)
     {
-        if (strcmp("-s", argv[i]) == 0)
-        {
-            preciseVectorData = false;
-        }
-        else if (strcmp("-d", argv[i]) == 0)
-        {
-            if ((i + 1) < argc)
-            {
-                hasInputPathParam = true;
-                strcpy(input_path, argv[i + 1]);
-                if (input_path[strlen(input_path) - 1] != '\\' || input_path[strlen(input_path) - 1] != '/')
-                    strcat(input_path, "/");
-                ++i;
-            }
-            else
-            {
-                result = false;
-            }
-        }
-        else if (strcmp("-?", argv[1]) == 0)
+        if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0 )
         {
             result = false;
+            break;
         }
-        else if (strcmp("-l", argv[i]) == 0)
+        else if (strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--small") == 0 )
         {
+            result = true;
+            preciseVectorData = false;
+        }
+        else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--large") == 0 )
+        {
+            result = true;
             preciseVectorData = true;
+        }
+        else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--data") == 0 )
+        {
+            param = argv[++i];
+            if (!param)
+            {
+                result = false;
+                break;
+            }
+
+            result = true;
+            hasInputPathParam = true;
+            strcpy(input_path, param);
+            if (input_path[strlen(input_path) - 1] != '\\' || input_path[strlen(input_path) - 1] != '/')
+            {
+                strcat(input_path, "/");
+            }
         }
         else
         {
@@ -483,7 +489,7 @@ int main(int argc, char** argv)
             printf("Your output directory seems to be polluted, please use an empty directory!\n");
             printf("<press return to exit>");
             char garbage[2];
-            int ret = scanf("%c", garbage);
+            scanf("%c", garbage);
             return 1;
         }
     }

@@ -1141,7 +1141,7 @@ void Unit::JustKilledCreature(Creature* victim, Player* responsiblePlayer)
         { return; }                                             // Pets might have been unsummoned at this place, do not handle them further!
 
     /* ******************************** Prepare loot if can ************************************ */
-	victim->SetKilledTime(time(NULL));
+    victim->SetKilledTime(time(NULL));
     victim->DeleteThreatList();
     // only lootable if it has loot or can drop gold
     victim->PrepareBodyLootState();
@@ -2586,7 +2586,7 @@ float Unit::CalculateLevelPenalty(SpellEntry const* spellProto) const
     float LvlPenalty = 0.0f;
 
     if (spellLevel < 20)
-        { LvlPenalty = 20.0f - spellLevel * 3.75f; }
+        { LvlPenalty = (20.0f - spellLevel) * 3.75f; }
     float LvlFactor = (float(spellLevel) + 6.0f) / float(getLevel());
     if (LvlFactor > 1.0f)
         LvlFactor = 1.0f;
@@ -2631,18 +2631,6 @@ bool Unit::IsSpellBlocked(Unit* pCaster, SpellEntry const* spellEntry, WeaponAtt
         if (spellEntry->HasAttribute(SPELL_ATTR_IMPOSSIBLE_DODGE_PARRY_BLOCK))
             { return false; }
     }
-
-    /*
-    // Ignore combat result aura (parry/dodge check on prepare)
-    AuraList const& ignore = GetAurasByType(SPELL_AURA_IGNORE_COMBAT_RESULT);
-    for(AuraList::const_iterator i = ignore.begin(); i != ignore.end(); ++i)
-    {
-        if (!(*i)->isAffectedOnSpell(spellProto))
-            continue;
-        if ((*i)->GetModifier()->m_miscvalue == ???)
-            return false;
-    }
-    */
 
     // Check creatures flags_extra for disable block
     if (GetTypeId() == TYPEID_UNIT)
@@ -3119,11 +3107,11 @@ float Unit::GetUnitCriticalChance(WeaponAttackType attackType, const Unit* pVict
     {
         switch (attackType)
         {
-            case BASE_ATTACK:
-                crit = GetFloatValue(PLAYER_CRIT_PERCENTAGE);
-                break;
             case OFF_ATTACK:
                 crit = GetFloatValue(PLAYER_OFFHAND_CRIT_PERCENTAGE);
+                break;
+            case BASE_ATTACK:
+                crit = GetFloatValue(PLAYER_CRIT_PERCENTAGE);
                 break;
             case RANGED_ATTACK:
                 crit = GetFloatValue(PLAYER_RANGED_CRIT_PERCENTAGE);
@@ -4946,8 +4934,10 @@ void Unit::SendAttackStateUpdate(uint32 HitInfo, Unit* target, uint8 /*SwingType
 
 void Unit::SetPowerType(Powers new_powertype)
 {
+    // set power type
     SetByteValue(UNIT_FIELD_BYTES_0, 3, new_powertype);
 
+    // group updates
     if (GetTypeId() == TYPEID_PLAYER)
     {
         if (((Player*)this)->GetGroup())
@@ -6348,8 +6338,8 @@ uint32 Unit::SpellHealingBonusTaken(Unit* /*pCaster*/, SpellEntry const* spellPr
     // Blessing of Light dummy effects healing taken from Holy Light and Flash of Light
     if (spellProto->SpellFamilyName == SPELLFAMILY_PALADIN && (spellProto->SpellFamilyFlags & UI64LIT(0x00000000C0000000)))
     {
-        AuraList const& auraDummy = GetAurasByType(SPELL_AURA_DUMMY);
-        for (AuraList::const_iterator i = auraDummy.begin(); i != auraDummy.end(); ++i)
+        AuraList const& mDummyAuras = GetAurasByType(SPELL_AURA_DUMMY);
+        for (AuraList::const_iterator i = mDummyAuras.begin(); i != mDummyAuras.end(); ++i)
         {
             if ((*i)->GetSpellProto()->SpellVisual == 9180)
             {
@@ -7217,17 +7207,22 @@ bool Unit::IsVisibleForOrDetect(Unit const* u, WorldObject const* viewPoint, boo
     if (m_Visibility == VISIBILITY_OFF)
         { return false; }
 
+    // grouped players should always see stealthed party members
+    if (GetTypeId() == TYPEID_PLAYER && u->GetTypeId() == TYPEID_PLAYER)
+        if (((Player*)this)->IsGroupVisibleFor(((Player*)u)) && u->IsFriendlyTo(this))
+            { return true; }
+
     // raw invisibility
     bool invisible = (m_invisibilityMask != 0 || u->m_invisibilityMask != 0);
 
     // detectable invisibility case
     if (invisible && (
-                // Invisible units, always are visible for units under same invisibility type
-                (m_invisibilityMask & u->m_invisibilityMask) != 0 ||
-                // Invisible units, always are visible for unit that can detect this invisibility (have appropriate level for detect)
-                u->CanDetectInvisibilityOf(this) ||
-                // Units that can detect invisibility always are visible for units that can be detected
-                CanDetectInvisibilityOf(u)))
+            // Invisible units, always are visible for units under same invisibility type
+            (m_invisibilityMask & u->m_invisibilityMask) != 0 ||
+            // Invisible units, always are visible for unit that can detect this invisibility (have appropriate level for detect)
+            u->CanDetectInvisibilityOf(this) ||
+            // Units that can detect invisibility always are visible for units that can be detected
+            CanDetectInvisibilityOf(u)))
     {
         invisible = false;
     }

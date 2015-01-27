@@ -347,7 +347,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket& recv_data)
     if (plMover)
         { plMover->UpdateFallInformationIfNeed(movementInfo, opcode); }
 
-    WorldPacket data(opcode, recv_data.size());
+    WorldPacket data(opcode, uint16(recv_data.size() + 2));
     data << mover->GetPackGUID();             // write guid
     movementInfo.Write(data);                               // write data
     mover->SendMessageToSetExcept(&data, _player);

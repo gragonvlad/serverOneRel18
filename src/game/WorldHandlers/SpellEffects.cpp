@@ -1166,7 +1166,7 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                 case 37388:                                 // Move 2 (Chess event AI long distance move)
                 {
                     if (!unitTarget || unitTarget->GetTypeId() != TYPEID_UNIT)
-                        return;
+                        { return; }
 
                     // cast generic move spell
                     m_caster->CastSpell(unitTarget, 30012, true);
@@ -4300,7 +4300,7 @@ void Spell::EffectEnchantItemTmp(SpellEffectIndex eff_idx)
         duration = 1800;                                    // 30 mins
     // some fishing pole bonuses
     else if (m_spellInfo->SpellVisual == 563)
-        duration = 600;                                     // 10 mins
+        { duration = 600; }                                     // 10 mins
     // shaman rockbiter enchantments
     else if (m_spellInfo->SpellVisual == 0)
         duration = 1800;                                    // 30 mins

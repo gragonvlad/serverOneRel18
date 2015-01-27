@@ -33,12 +33,12 @@
 
 #include "Mail.h"
 #include "Log.h"
-#include "ObjectGuid.h"
-#include "ObjectMgr.h"
-#include "Item.h"
-#include "Player.h"
 #include "World.h"
+#include "ObjectMgr.h"
+#include "ObjectGuid.h"
+#include "Player.h"
 #include "BattleGround/BattleGroundMgr.h"
+#include "Item.h"
 
 /**
  * Creates a new MailSender object.
