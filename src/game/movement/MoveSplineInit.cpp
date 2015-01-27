@@ -156,7 +156,6 @@ namespace Movement
             data << transportInfo->GetTransportGuid().WriteAsPacked();
         }
 
-        data << uint8(0);
         data << real_position.x << real_position.y << real_position.z;
         data << move_spline.GetId();
         data << uint8(MonsterMoveStop);
