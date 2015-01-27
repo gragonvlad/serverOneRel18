@@ -25,6 +25,6 @@
 #ifndef MANGOS_H_REVISION_SQL
 #define MANGOS_H_REVISION_SQL
 #define REVISION_DB_CHARACTERS "required_20001_02_dbdocs_Update"
-#define REVISION_DB_MANGOS "required_20000_02_Script_Fixes"
+#define REVISION_DB_MANGOS "required_20000_13_Missing_Developer_Items_Added"
 #define REVISION_DB_REALMD "required_20140607_Realm_Resync"
 #endif // __REVISION_SQL_H__
