@@ -470,7 +470,7 @@ bool processArgv(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
-    printf("mangos-zero vmap (version %s) extractor\n\n", szRawVMAPMagic);
+    printf("mangos one vmap (version %s) extractor\n\n", szRawVMAPMagic);
 
     bool success = true;
 
