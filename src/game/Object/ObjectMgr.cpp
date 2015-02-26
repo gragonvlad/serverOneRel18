@@ -8006,6 +8006,19 @@ bool PlayerCondition::IsValid(uint16 entry, ConditionType condition, uint32 valu
 			}
 			break;
         }
+        case CONDITION_GAMEOBJECT_IN_RANGE:
+        {
+            if (!sCreatureStorage.LookupEntry<GameObjectInfo>(value1))
+            {
+                sLog.outErrorDb("Game object in range condition (entry %u, type %u) has an invalid value in value1 (gameobject). (Game object %u does not exist in the database), skipping.", entry, condition, value1);
+                return false;
+            }
+            if (value2 <= 0)
+            {
+                sLog.outErrorDb("Game object in range condition (entry %u, type %u) has an invalid value in value2 (range). (Range %u must be greater than 0), skipping.", entry, condition, value2);
+                return false;
+            }
+        }
         case CONDITION_NONE:
             break;
         default:
