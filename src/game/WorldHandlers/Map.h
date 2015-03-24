@@ -62,6 +62,7 @@ struct ScriptInfo;
 class BattleGround;
 class GridMap;
 class GameObjectModel;
+class WeatherSystem;
 
 // GCC have alternative #pragma pack(N) syntax and old gcc version not support pack(push,N), also any gcc version not support it at some platform
 #if defined( __GNUC__ )
@@ -301,6 +302,17 @@ class Map : public GridRefManager<NGridType>
         bool GetRandomPointInTheAir(float& x, float& y, float& z, float radius);
         bool GetRandomPointUnderWater(float& x, float& y, float& z, float radius, GridMapLiquidData& liquid_status);
 
+        // WeatherSystem
+        WeatherSystem* GetWeatherSystem() const { return m_weatherSystem; }
+        /** Set the weather in a zone on this map
+         * @param zoneId set the weather for which zone
+         * @param type What weather to set
+         * @param grade how strong the weather should be
+         * @param permanently set the weather permanently?
+         */
+        void SetWeather(uint32 zoneId, WeatherType type, float grade, bool permanently);
+
+
     private:
         void LoadMapAndVMap(int gx, int gy);
 
@@ -387,12 +399,14 @@ class Map : public GridRefManager<NGridType>
 
         template<class T>
         void RemoveFromGrid(T*, NGridType*, Cell const&);
-
         // Holder for information about linked mobs
         CreatureLinkingHolder m_creatureLinkingHolder;
 
         // Dynamic Map tree object
         DynamicMapTree m_dyn_tree;
+
+        // WeatherSystem
+        WeatherSystem* m_weatherSystem;
 };
 
 class WorldMap : public Map

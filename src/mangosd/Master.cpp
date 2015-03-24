@@ -45,7 +45,7 @@
 #include "CliRunnable.h"
 #include "RASocket.h"
 #include "Util.h"
-#include "revision_sql.h"
+#include "revision.h"
 #include "MassMailMgr.h"
 #include "DBCStores.h"
 #include "ScriptMgr.h"

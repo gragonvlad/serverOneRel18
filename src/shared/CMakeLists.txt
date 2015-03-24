@@ -103,8 +103,7 @@ set(LIBRARY_SRCS
     Common.cpp
     Common.h
     LockedQueue.h
-    revision_nr.h
-    revision_sql.h
+    revision.h
     Threading.cpp
     Threading.h
 )
