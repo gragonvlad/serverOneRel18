@@ -10315,7 +10315,7 @@ Item* Player::_StoreItem(uint16 pos, Item* pItem, uint32 count, bool clone, bool
         }
         else if (Bag* pBag = (Bag*)GetItemByPos(INVENTORY_SLOT_BAG_0, bag))
         {
-            pBag->StoreItem(slot, pItem, update);
+            pBag->StoreItem(slot, pItem);
             if (IsInWorld() && update)
             {
                 pItem->AddToWorld();
@@ -10623,7 +10623,7 @@ void Player::RemoveItem(uint8 bag, uint8 slot, bool update)
         {
             Bag* pBag = (Bag*)GetItemByPos(INVENTORY_SLOT_BAG_0, bag);
             if (pBag)
-                { pBag->RemoveItem(slot, update); }
+                pBag->RemoveItem(slot);
         }
         pItem->SetGuidValue(ITEM_FIELD_CONTAINED, ObjectGuid());
         // pItem->SetGuidValue(ITEM_FIELD_OWNER, ObjectGuid()); not clear owner at remove (it will be set at store). This used in mail and auction code
@@ -10746,7 +10746,7 @@ void Player::DestroyItem(uint8 bag, uint8 slot, bool update)
             m_items[slot] = NULL;
         }
         else if (Bag* pBag = (Bag*)GetItemByPos(INVENTORY_SLOT_BAG_0, bag))
-            { pBag->RemoveItem(slot, update); }
+            pBag->RemoveItem(slot);
 
         if (IsInWorld() && update)
         {
@@ -11401,8 +11401,8 @@ void Player::SwapItem(uint16 src, uint16 dst)
                 if (!bagItem)
                     { continue; }
 
-                fullBag->RemoveItem(i, true);
-                emptyBag->StoreItem(count, bagItem, true);
+                fullBag->RemoveItem(i);
+                emptyBag->StoreItem(count, bagItem);
                 bagItem->SetState(ITEM_CHANGED, this);
 
                 ++count;
@@ -13174,7 +13174,7 @@ void Player::RewardQuest(Quest const* pQuest, uint32 reward, Object* questGiver,
         { q_status.uState = QUEST_CHANGED; }
 
     if (announce)
-        { SendQuestReward(pQuest, xp, questGiver); }
+        SendQuestReward(pQuest, xp);
 
     bool handled = false;
 
@@ -14207,7 +14207,7 @@ void Player::SendQuestCompleteEvent(uint32 quest_id)
     }
 }
 
-void Player::SendQuestReward(Quest const* pQuest, uint32 XP, Object* /*questGiver*/)
+void Player::SendQuestReward(Quest const* pQuest, uint32 XP)
 {
     uint32 questid = pQuest->GetQuestId();
     DEBUG_LOG("WORLD: Sent SMSG_QUESTGIVER_QUEST_COMPLETE quest = %u", questid);
