@@ -327,6 +327,7 @@ void CreatureEventAIMgr::LoadCreatureEventAI_Scripts()
                 case EVENT_T_MANA:
                 case EVENT_T_TARGET_HP:
                 case EVENT_T_TARGET_MANA:
+                case EVENT_T_ENERGY:
                     if (temp.percent_range.percentMax > 100)
                         { sLog.outErrorEventAI("Creature %u are using percentage event(%u) with param2 (MinPercent) > 100. Event will never trigger! ", temp.creature_id, i); }
 
@@ -506,6 +507,11 @@ void CreatureEventAIMgr::LoadCreatureEventAI_Scripts()
                         sLog.outErrorEventAI("Event %u has unfitting event-type (%u) defined for event RECEIVE_AI_EVENT (must be less than %u), skipping.", i, temp.receiveAIEvent.eventType, MAXIMAL_AI_EVENT_EVENTAI);
                         continue;
                     }
+                    break;
+                }
+                case EVENT_T_REACHED_WAYPOINT:
+                {
+                    // nothing to check because the types used prevent anything unwanted from being entered (positive and negative values are allowed for all inputs)
                     break;
                 }
                 default:
