@@ -149,8 +149,7 @@ World::~World()
     VMAP::VMapFactory::clear();
     MMAP::MMapFactory::clear();
 
-    if (m_configForceLoadMapIds)
-        delete m_configForceLoadMapIds;
+    delete m_configForceLoadMapIds;
 
     // TODO free addSessQueue
 }
