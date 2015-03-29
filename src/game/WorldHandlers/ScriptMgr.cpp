@@ -86,6 +86,10 @@ uint8 GetSpellStartDBScriptPriority(SpellEntry const* spellinfo, SpellEffectInde
     if (spellinfo->Effect[effIdx] == SPELL_EFFECT_TRIGGER_SPELL && !sSpellStore.LookupEntry(spellinfo->EffectTriggerSpell[effIdx]))
         { return 5; }
 
+    // NonExisting trigger missile spells can also start DB-Spell-Scripts
+    if (spellinfo->Effect[effIdx] == SPELL_EFFECT_TRIGGER_MISSILE && !sSpellStore.LookupEntry(spellinfo->EffectTriggerSpell[effIdx]))
+        { return 4; }
+
     // Can not start script
     return 0;
 }
@@ -673,6 +677,15 @@ void ScriptMgr::LoadScripts(ScriptMapMapName& scripts, const char* tablename)
                 if (tmp.sendAIEvent.eventType >= MAXIMAL_AI_EVENT_EVENTAI)
                 {
                     sLog.outErrorDb("Table `%s` has invalid AI event (datalong = %u) in SCRIPT_COMMAND_SEND_AI_EVENT for script id %u", tablename, tmp.sendAIEvent.eventType, tmp.id);
+                    continue;
+                }
+                break;
+            }
+            case SCRIPT_COMMAND_MOVE_DYNAMIC:               // 37
+            {
+                if (tmp.moveDynamic.maxDist < tmp.moveDynamic.minDist)
+                {
+                    sLog.outErrorDb("Table `%s` has invalid min-dist (datalong2 = %u) less than max-dist (datalon = %u) in SCRIPT_COMMAND_MOVE_DYNAMIC for script id %u", tablename, tmp.moveDynamic.minDist, tmp.moveDynamic.maxDist, tmp.id);
                     continue;
                 }
                 break;
@@ -1820,6 +1833,39 @@ bool ScriptAction::HandleScriptStep()
                 { break; }
 
             ((Unit*)pSource)->SetFacingTo(pSource->GetAngle(pTarget));
+            break;
+        }
+        case SCRIPT_COMMAND_MOVE_DYNAMIC:                   // 37
+        {
+            if (LogIfNotCreature(pSource))
+                return false;
+            if (LogIfNotUnit(pTarget))
+                return false;
+
+            float x, y, z;
+            if (m_script->moveDynamic.maxDist == 0)         // Move to pTarget
+            {
+                if (pTarget == pSource)
+                {
+                    sLog.outErrorDb(" DB-SCRIPTS: Process table `%s` id %u, _MOVE_DYNAMIC called with maxDist == 0, but resultingSource == resultingTarget (== %s)", m_table, m_script->id, pSource->GetGuidStr().c_str());
+                    break;
+                }
+                pTarget->GetContactPoint(pSource, x, y, z);
+            }
+            else                                            // Calculate position
+            {
+                float orientation;
+                if (m_script->data_flags & SCRIPT_FLAG_COMMAND_ADDITIONAL)
+                    orientation = pSource->GetOrientation() + m_script->o + 2 * M_PI_F;
+                else
+                    orientation = m_script->o;
+
+                pSource->GetRandomPoint(pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(), m_script->moveDynamic.maxDist, x, y, z,
+                                        m_script->moveDynamic.minDist, (orientation == 0.0f ? NULL : &orientation));
+                z = std::max(z, pTarget->GetPositionZ());
+                pSource->UpdateAllowedPositionZ(x, y, z);
+            }
+            ((Creature*)pSource)->GetMotionMaster()->MovePoint(1, x, y, z);
             break;
         }
         default:
