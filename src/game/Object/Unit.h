@@ -190,7 +190,7 @@ enum UnitStandFlags
 enum UnitBytes1_Flags
 {
     UNIT_BYTE1_FLAG_ALWAYS_STAND = 0x01,
-    UNIT_BYTE1_FLAG_UNK_2        = 0x02,                    // Creature that can fly and are not on the ground appear to have this flag. If they are on the ground, flag is not present.
+    UNIT_BYTE1_FLAG_FLY_ANIM     = 0x02,                    // Creature that can fly and are not on the ground appear to have this flag. If they are on the ground, flag is not present.
     UNIT_BYTE1_FLAG_UNTRACKABLE  = 0x04,
     UNIT_BYTE1_FLAG_ALL          = 0xFF
 };
@@ -573,7 +573,7 @@ enum UnitFlags
     UNIT_FLAG_PVP                   = 0x00001000,
     UNIT_FLAG_SILENCED              = 0x00002000,           ///< silenced, 2.1.1
     UNIT_FLAG_UNK_14                = 0x00004000,           // 2.0.8
-    UNIT_FLAG_UNK_15                = 0x00008000,
+    UNIT_FLAG_UNK_15                = 0x00008000,           // related to jerky movement in water?
     UNIT_FLAG_UNK_16                = 0x00010000,           ///< removes attackable icon
     UNIT_FLAG_PACIFIED              = 0x00020000,
     UNIT_FLAG_STUNNED               = 0x00040000,           // stunned, 2.1.1
@@ -650,18 +650,15 @@ enum NPCFlags
  */
 enum MovementFlags
 {
-    // Byte 1 (Resets on Movement Key Press)
     MOVEFLAG_NONE                   = 0x00000000,
-    MOVEFLAG_MOVE_FORWARD           = 0x00000001,           /// verified
-    MOVEFLAG_MOVE_BACKWARD          = 0x00000002,           /// verified
+    MOVEFLAG_FORWARD                = 0x00000001,           /// verified
+    MOVEFLAG_BACKWARD               = 0x00000002,           /// verified
     MOVEFLAG_STRAFE_LEFT            = 0x00000004,           /// verified
     MOVEFLAG_STRAFE_RIGHT           = 0x00000008,           /// verified
     MOVEFLAG_TURN_LEFT              = 0x00000010,           /// verified
     MOVEFLAG_TURN_RIGHT             = 0x00000020,           /// verified
     MOVEFLAG_PITCH_UP               = 0x00000040,           /// not confirmed
     MOVEFLAG_PITCH_DOWN             = 0x00000080,           /// not confirmed
-
-    // Byte 2 (Resets on Situation Change)
     MOVEFLAG_WALK_MODE              = 0x00000100,           /// verified
     MOVEFLAG_ONTRANSPORT            = 0x00000200,               // Used for flying on some creatures
     MOVEFLAG_LEVITATE               = 0x00000400,
@@ -675,15 +672,15 @@ enum MovementFlags
     MOVEFLAG_FLYING2            = 0x02000000,               // Actual flying mode
     MOVEFLAG_SPLINE_ELEVATION   = 0x04000000,               // used for flight paths
     MOVEFLAG_SPLINE_ENABLED     = 0x08000000,               // used for flight paths
-    MOVEFLAG_WATER_WALK       = 0x10000000,               // prevent unit from falling through water
+    MOVEFLAG_WATERWALKING       = 0x10000000,               // prevent unit from falling through water
     MOVEFLAG_SAFE_FALL          = 0x20000000,               // active rogue safe fall spell (passive)
     MOVEFLAG_HOVER              = 0x40000000
 };
 
 // flags that use in movement check for example at spell casting
 MovementFlags const movementFlagsMask = MovementFlags(
-        MOVEFLAG_MOVE_FORWARD | MOVEFLAG_MOVE_BACKWARD  | MOVEFLAG_STRAFE_LEFT | MOVEFLAG_STRAFE_RIGHT |
-        MOVEFLAG_PITCH_UP | MOVEFLAG_PITCH_DOWN | MOVEFLAG_IMMOBILIZED        |
+        MOVEFLAG_FORWARD | MOVEFLAG_BACKWARD  | MOVEFLAG_STRAFE_LEFT | MOVEFLAG_STRAFE_RIGHT |
+        MOVEFLAG_PITCH_UP | MOVEFLAG_PITCH_DOWN | MOVEFLAG_IMMOBILIZED |
         MOVEFLAG_FALLING | MOVEFLAG_FALLINGFAR | MOVEFLAG_ASCENDING   |
         MOVEFLAG_FLYING  | MOVEFLAG_SPLINE_ELEVATION
                                         );
@@ -763,9 +760,6 @@ class MovementInfo
         JumpInfo jump;
         // spline
         float    u_unk1;
-        // unknown
-        uint8 unk13;
-        uint32 unklast; // something to do with collision?
 };
 
 inline ByteBuffer& operator<< (ByteBuffer& buf, MovementInfo const& mi)
@@ -2972,6 +2966,12 @@ class  Unit : public WorldObject
          * \see MovementInfo::HasMovementFlag
          */
         bool IsRooted() const { return m_movementInfo.HasMovementFlag(MOVEFLAG_IMMOBILIZED); }
+
+        virtual void SetLevitate(bool /*enabled*/) {}
+        virtual void SetSwim(bool /*enabled*/) {}
+        virtual void SetCanFly(bool /*enabled*/) {}
+        virtual void SetFeatherFall(bool /*enabled*/) {}
+        virtual void SetHover(bool /*enabled*/) {}
         /**
          * Roots or unroots this \ref Unit depending on the enabled parameter.
          * @param enabled whether we should root (true) or unroot (false) this \ref Unit
@@ -3769,6 +3769,9 @@ class  Unit : public WorldObject
         void OnRelocated();
 
         bool IsLinkingEventTrigger() { return m_isCreatureLinkingTrigger; }
+
+        virtual bool CanSwim() const = 0;
+        virtual bool CanFly() const = 0;
 
     protected:
         explicit Unit();

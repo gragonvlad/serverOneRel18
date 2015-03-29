@@ -7875,7 +7875,7 @@ bool Unit::SelectHostileTarget()
 
             // check if currently selected target is reachable
             // NOTE: path alrteady generated from AttackStart()
-            if (!GetMotionMaster()->operator->()->IsReachable())
+            if (!GetMotionMaster()->GetCurrent()->IsReachable())
             {
                 // remove all taunts
                 RemoveSpellsCausingAura(SPELL_AURA_MOD_TAUNT);
@@ -9922,6 +9922,6 @@ void Unit::UpdateSplineMovement(uint32 t_diff)
 
 void Unit::DisableSpline()
 {
-    m_movementInfo.RemoveMovementFlag(MovementFlags(MOVEFLAG_SPLINE_ENABLED | MOVEFLAG_MOVE_FORWARD));
+    m_movementInfo.RemoveMovementFlag(MovementFlags(MOVEFLAG_SPLINE_ENABLED | MOVEFLAG_FORWARD));
     movespline->_Interrupt();
 }

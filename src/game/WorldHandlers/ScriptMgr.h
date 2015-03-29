@@ -50,7 +50,7 @@ class WorldObject;
 enum ScriptCommand                                          // resSource, resTarget are the resulting Source/ Target after buddy search is done
 {
     SCRIPT_COMMAND_TALK                     = 0,            // resSource = WorldObject, resTarget = Unit/none
-    // dataint = text entry from db_script_string -table. dataint2-4 optional for random selected texts.
+                                                            // dataint = text entry from db_script_string -table. dataint2-4 optional for random selected texts.
     SCRIPT_COMMAND_EMOTE                    = 1,            // resSource = Unit, resTarget = Unit/none
                                                             // datalong1 = emote_id, dataint1-4 optional for random selected emotes
     SCRIPT_COMMAND_FIELD_SET                = 2,            // source = any, datalong = field_id, datalong2 = value
@@ -596,10 +596,12 @@ bool StartEvents_Event(Map* map, uint32 id, Object* source, Object* target, bool
 
 #define sScriptMgr MaNGOS::Singleton<ScriptMgr>::Instance()
 
- uint32 GetAreaTriggerScriptId(uint32 triggerId);
- uint32 GetEventIdScriptId(uint32 eventId);
- uint32 GetScriptId(const char* name);
- char const* GetScriptName(uint32 id);
- uint32 GetScriptIdsCount();
+uint32 GetAreaTriggerScriptId(uint32 triggerId);
+uint32 GetEventIdScriptId(uint32 eventId);
+uint32 GetScriptId(const char* name);
+char const* GetScriptName(uint32 id);
+uint32 GetScriptIdsCount();
+void SetExternalWaypointTable(char const* tableName);
+bool AddWaypointFromExternal(uint32 entry, int32 pathId, uint32 pointId, float x, float y, float z, float o, uint32 waittime);
 
 #endif

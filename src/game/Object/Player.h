@@ -1950,6 +1950,10 @@ class  Player : public Unit
             StopMirrorTimer(FIRE_TIMER);
         }
 
+        void SetLevitate(bool enable) override;
+        void SetCanFly(bool enable) override;
+        void SetFeatherFall(bool enable) override;
+        void SetHover(bool enable) override;
         void SetRoot(bool enable) override;
         void SetWaterWalk(bool enable) override;
 
@@ -2211,7 +2215,7 @@ class  Player : public Unit
         void SetRestTime(uint32 v) { m_restTime = v; }
 
         /*********************************************************/
-        /***              ENVIRONMENTAL SYSTEM                  ***/
+        /***              ENVIRONMENTAL SYSTEM                 ***/
         /*********************************************************/
 
         uint32 EnvironmentalDamage(EnviromentalDamage type, uint32 damage);
@@ -2241,6 +2245,7 @@ class  Player : public Unit
         bool isMoving() const { return m_movementInfo.HasMovementFlag(movementFlagsMask); }
         bool isMovingOrTurning() const { return m_movementInfo.HasMovementFlag(movementOrTurningFlagsMask); }
 
+        bool CanSwim() const { return true; }
         bool CanFly() const { return m_movementInfo.HasMovementFlag(MOVEFLAG_CAN_FLY); }
         bool IsFlying() const { return m_movementInfo.HasMovementFlag(MOVEFLAG_FLYING); }
         bool IsFreeFlying() const { return HasAuraType(SPELL_AURA_MOD_FLIGHT_SPEED_MOUNTED) || HasAuraType(SPELL_AURA_FLY); }
