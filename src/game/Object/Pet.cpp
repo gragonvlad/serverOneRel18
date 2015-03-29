@@ -2034,7 +2034,7 @@ void Pet::CastOwnerTalentAuras()
         RemoveAurasDueToSpell(34459);
         RemoveAurasDueToSpell(34460);
 
-        if (isAlive())
+        if (IsAlive())
         {
             if (pOwner->HasSpell(34455)) // Ferocious Inspiration Rank 1
                 CastSpell(this, 34457, true); // Ferocious Inspiration 1%
