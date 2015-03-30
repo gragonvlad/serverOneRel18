@@ -218,7 +218,10 @@ class  Map : public GridRefManager<NGridType>
         uint32 GetPlayersCountExceptGMs() const;
         bool ActiveObjectsNearGrid(uint32 x, uint32 y) const;
 
+        /// Send a Packet to all players on a map
         void SendToPlayers(WorldPacket const* data) const;
+        /// Send a Packet to all players in a zone. Return false if no player found
+        bool SendToPlayersInZone(WorldPacket const* data, uint32 zoneId) const;
 
         typedef MapRefManager PlayerList;
         PlayerList const& GetPlayers() const { return m_mapRefManager; }
@@ -278,6 +281,7 @@ class  Map : public GridRefManager<NGridType>
 
         // Dynamic VMaps
         float GetHeight(float x, float y, float z) const;
+        bool GetHeightInRange(float x, float y, float& z, float maxSearchDist = 4.0f) const;
         bool IsInLineOfSight(float x1, float y1, float z1, float x2, float y2, float z2) const;
         bool GetHitPosition(float srcX, float srcY, float srcZ, float& destX, float& destY, float& destZ, float modifyDist) const;
 
@@ -291,6 +295,11 @@ class  Map : public GridRefManager<NGridType>
 
         // Teleport all players in that map to choosed location
         void TeleportAllPlayersTo(TeleportLocation loc);
+        // Random on map generation
+        bool GetReachableRandomPosition(Unit* unit, float& x, float& y, float& z, float radius);
+        bool GetReachableRandomPointOnGround(float& x, float& y, float& z, float radius);
+        bool GetRandomPointInTheAir(float& x, float& y, float& z, float radius);
+        bool GetRandomPointUnderWater(float& x, float& y, float& z, float radius, GridMapLiquidData& liquid_status);
 
     private:
         void LoadMapAndVMap(int gx, int gy);
