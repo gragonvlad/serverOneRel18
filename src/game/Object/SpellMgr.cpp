@@ -1598,6 +1598,7 @@ void SpellMgr::LoadSpellBonuses()
     delete result;
 
     sLog.outString(">> Loaded %u extra spell bonus data",  count);
+    sLog.outString();
 }
 
 bool SpellMgr::IsSpellProcEventCanTriggeredBy(SpellProcEventEntry const* spellProcEvent, uint32 EventProcFlag, SpellEntry const* procSpell, uint32 procFlags, uint32 procExtra)
