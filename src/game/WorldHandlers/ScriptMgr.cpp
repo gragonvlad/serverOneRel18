@@ -37,6 +37,7 @@
 #include "BattleGround/BattleGround.h"
 #include "OutdoorPvP/OutdoorPvP.h"
 #include "WaypointMovementGenerator.h"
+#include "Mail.h"
 
 #ifdef ENABLE_ELUNA
 #include "LuaEngine.h"
@@ -688,6 +689,20 @@ void ScriptMgr::LoadScripts(ScriptMapMapName& scripts, const char* tablename)
                 }
                 break;
             }
+            case SCRIPT_COMMAND_SEND_MAIL:                  // 38
+            {
+                if (!sMailTemplateStore.LookupEntry(tmp.sendMail.mailTemplateId))
+                {
+                    sLog.outErrorDb("Table `%s` has invalid mailTemplateId (datalong = %u) in SCRIPT_COMMAND_SEND_MAIL for script id %u", tablename, tmp.sendMail.mailTemplateId, tmp.id);
+                    continue;
+                }
+                if (tmp.sendMail.altSender && !ObjectMgr::GetCreatureTemplate(tmp.sendMail.altSender))
+                {
+                    sLog.outErrorDb("Table `%s` has invalid alternativeSender (datalong2 = %u) in SCRIPT_COMMAND_SEND_MAIL for script id %u", tablename, tmp.sendMail.altSender, tmp.id);
+                    continue;
+                }
+                break;
+            }
             default:
             {
                 sLog.outErrorDb("Table `%s` unknown command %u, skipping.", tablename, tmp.command);
@@ -1071,6 +1086,15 @@ bool ScriptAction::LogIfNotGameObject(WorldObject* pWorldObject)
     if (!pWorldObject || pWorldObject->GetTypeId() != TYPEID_GAMEOBJECT)
     {
         sLog.outErrorDb(" DB-SCRIPTS: Process table `%s` id %u, command %u call for non-gameobject, skipping.", m_table, m_script->id, m_script->command);
+        return true;
+    }
+    return false;
+}
+bool ScriptAction::LogIfNotPlayer(WorldObject* pWorldObject)
+{
+    if (!pWorldObject || pWorldObject->GetTypeId() != TYPEID_PLAYER)
+    {
+        sLog.outErrorDb(" DB-SCRIPTS: Process table `%s` id %u, command %u call for non-player, skipping.", m_table, m_script->id, m_script->command);
         return true;
     }
     return false;
@@ -1862,6 +1886,23 @@ bool ScriptAction::HandleScriptStep()
                 pSource->UpdateAllowedPositionZ(x, y, z);
             }
             ((Creature*)pSource)->GetMotionMaster()->MovePoint(1, x, y, z);
+            break;
+        }
+        case SCRIPT_COMMAND_SEND_MAIL:                      // 38
+        {
+            if (LogIfNotPlayer(pTarget))
+                return false;
+            if (!m_script->sendMail.altSender && LogIfNotCreature(pSource))
+                return false;
+
+            MailSender sender;
+            if (m_script->sendMail.altSender)
+                sender = MailSender(MAIL_CREATURE, m_script->sendMail.altSender);
+            else
+                sender = MailSender(pSource);
+            uint32 deliverDelay = m_script->textId[0] > 0 ? (uint32)m_script->textId[0] : 0;
+
+            MailDraft(m_script->sendMail.mailTemplateId).SendMailTo(static_cast<Player*>(pTarget), sender, MAIL_CHECK_MASK_HAS_BODY, deliverDelay);
             break;
         }
         default:
