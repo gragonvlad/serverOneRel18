@@ -1289,7 +1289,7 @@ void World::SetInitialWorldSettings()
     sScriptMgr.LoadGameObjectTemplateScripts();             // must be after load Creature/Gameobject(Template/Data)
     sScriptMgr.LoadEventScripts();                          // must be after load Creature/Gameobject(Template/Data)
     sScriptMgr.LoadCreatureDeathScripts();                  // must be after load Creature/Gameobject(Template/Data)
-    sLog.outString(">>> Scripts loaded");
+    sLog.outString(">>> DB Scripts loaded");
     sLog.outString();
 
     sLog.outString("Loading Scripts text locales...");      // must be after Load*Scripts calls

@@ -2987,7 +2987,7 @@ bool Player::addSpell(uint32 spell_id, bool active, bool learning, bool dependen
         {
             for (PlayerSpellMap::iterator itr2 = m_spells.begin(); itr2 != m_spells.end(); ++itr2)
             {
-                PlayerSpell& playerSpell2 = itr2->second;
+                PlayerSpell &playerSpell2 = itr2->second;
 
                 if (playerSpell2.state == PLAYERSPELL_REMOVED) { continue; }
                 SpellEntry const* i_spellInfo = sSpellStore.LookupEntry(itr2->first);
@@ -3108,9 +3108,9 @@ bool Player::addSpell(uint32 spell_id, bool active, bool learning, bool dependen
                 { continue; }
 
             if (skillAbility->learnOnGetSkill == ABILITY_LEARNED_ON_GET_RACE_OR_CLASS_SKILL ||
-                    // poison special case, not have ABILITY_LEARNED_ON_GET_RACE_OR_CLASS_SKILL
+                // poison special case, not have ABILITY_LEARNED_ON_GET_RACE_OR_CLASS_SKILL
                     pSkill->id == SKILL_POISONS && skillAbility->max_value == 0 ||
-                    // lockpicking special case, not have ABILITY_LEARNED_ON_GET_RACE_OR_CLASS_SKILL
+                // lockpicking special case, not have ABILITY_LEARNED_ON_GET_RACE_OR_CLASS_SKILL
                     pSkill->id == SKILL_LOCKPICKING && skillAbility->max_value == 0)
             {
                 switch (GetSkillRangeType(pSkill, skillAbility->racemask != 0))
@@ -3140,9 +3140,9 @@ bool Player::addSpell(uint32 spell_id, bool active, bool learning, bool dependen
         if (!spellLearn.autoLearned)
         {
             if (!IsInWorld() || !spellLearn.active)       // at spells loading, no output, but allow save
-                addSpell(spellLearn.spell, spellLearn.active, true, true, false);
+                { addSpell(spellLearn.spell, spellLearn.active, true, true, false); }
             else                                            // at normal learning
-                learnSpell(spellLearn.spell, true);
+                { learnSpell(spellLearn.spell, true); }
         }
     }
 
@@ -3320,7 +3320,7 @@ void Player::removeSpell(uint32 spell_id, bool disabled, bool learn_low_rank, bo
             {
                 // not reset skills for professions and racial abilities
                 if ((pSkill->categoryId == SKILL_CATEGORY_SECONDARY || pSkill->categoryId == SKILL_CATEGORY_PROFESSION) &&
-                    (IsProfessionSkill(pSkill->id) || skillAbility->racemask != 0))
+                        (IsProfessionSkill(pSkill->id) || skillAbility->racemask != 0))
                     { continue; }
 
                 SetSkill(pSkill->id, 0, 0);
@@ -4266,7 +4266,7 @@ void Player::BuildPlayerRepop()
     // there must be SMSG.STOP_MIRROR_TIMER
     // there we must send 888 opcode
 
-    // the player cannot have a corpse already, only bones which are not returned by GetCorpse
+    // the player can not have a corpse already, only bones which are not returned by GetCorpse
     if (GetCorpse())
     {
         sLog.outError("BuildPlayerRepop: player %s(%d) already has a corpse", GetName(), GetGUIDLow());
@@ -5230,9 +5230,9 @@ bool Player::UpdateSkill(uint32 skill_id, uint32 step)
 
     SkillStatusMap::iterator itr = mSkillStatus.find(skill_id);
     if (itr == mSkillStatus.end())
-        return false;
+        { return false; }
 
-    SkillStatusData& skillStatus = itr->second;
+    SkillStatusData &skillStatus = itr->second;
     if (skillStatus.uState == SKILL_DELETED)
         { return false; }
 
@@ -5253,7 +5253,7 @@ bool Player::UpdateSkill(uint32 skill_id, uint32 step)
         SetUInt32Value(valueIndex, MAKE_SKILL_VALUE(new_value, max));
 
         if (skillStatus.uState != SKILL_NEW)
-            { skillStatus.uState = SKILL_CHANGED; }
+            skillStatus.uState = SKILL_CHANGED;
 
         return true;
     }
@@ -5361,7 +5361,7 @@ bool Player::UpdateSkillPro(uint16 SkillId, int32 Chance, uint32 step)
     if (itr == mSkillStatus.end())
         { return false; }
 
-    SkillStatusData& skillStatus = itr->second;
+    SkillStatusData &skillStatus = itr->second;
     if (skillStatus.uState == SKILL_DELETED)
         { return false; }
 
@@ -5485,7 +5485,7 @@ void Player::UpdateSkillsForLevel()
 
     for (SkillStatusMap::iterator itr = mSkillStatus.begin(); itr != mSkillStatus.end(); ++itr)
     {
-        SkillStatusData& skillStatus = itr->second;
+        SkillStatusData &skillStatus = itr->second;
         if (skillStatus.uState == SKILL_DELETED)
             { continue; }
 
@@ -5527,7 +5527,7 @@ void Player::UpdateSkillsToMaxSkillsForLevel()
 {
     for (SkillStatusMap::iterator itr = mSkillStatus.begin(); itr != mSkillStatus.end(); ++itr)
     {
-        SkillStatusData& skillStatus = itr->second;
+        SkillStatusData &skillStatus = itr->second;
         if (skillStatus.uState == SKILL_DELETED)
             { continue; }
 
@@ -5563,11 +5563,11 @@ void Player::SetSkill(uint16 id, uint16 currVal, uint16 maxVal, uint16 step /*=0
     // has skill
     if (itr != mSkillStatus.end() && itr->second.uState != SKILL_DELETED)
     {
-        SkillStatusData& skillStatus = itr->second;
+        SkillStatusData &skillStatus = itr->second;
         if (currVal)
         {
             if (step)                                      // need update step
-                { SetUInt32Value(PLAYER_SKILL_INDEX(skillStatus.pos), MAKE_PAIR32(id, step)); }
+                SetUInt32Value(PLAYER_SKILL_INDEX(skillStatus.pos), MAKE_PAIR32(id, step));
 
             // update value
             SetUInt32Value(PLAYER_SKILL_VALUE_INDEX(skillStatus.pos), MAKE_SKILL_VALUE(currVal, maxVal));
@@ -5717,7 +5717,7 @@ uint16 Player::GetBaseSkillValue(uint32 skill) const
 
     SkillStatusMap::const_iterator itr = mSkillStatus.find(skill);
     if (itr == mSkillStatus.end())
-        { return 0; }
+        { return 0;}
 
     SkillStatusData const& skillStatus = itr->second;
     if (skillStatus.uState == SKILL_DELETED)
@@ -5941,9 +5941,8 @@ bool Player::SetPosition(float x, float y, float z, float orientation, bool tele
         // group update
         if (GetGroup() && (old_x != x || old_y != y))
             { SetGroupUpdateFlag(GROUP_UPDATE_FLAG_POSITION); }
-
         if (GetTrader() && !IsWithinDistInMap(GetTrader(), INTERACTION_DISTANCE))
-            GetSession()->SendCancelTrade();   // will close both side trade windows
+            { GetSession()->SendCancelTrade(); }   // will close both side trade windows
     }
 
     if (m_positionStatusUpdateTimer)                        // Update position's state only on interval
@@ -8963,7 +8962,7 @@ InventoryResult Player::_CanStoreItem_InSpecificSlot(uint8 bag, uint8 slot, Item
         if (bag == INVENTORY_SLOT_BAG_0)
         {
             // keyring case
-            if (slot >= KEYRING_SLOT_START && slot < KEYRING_SLOT_START + GetMaxKeyringSize() && !(pProto->BagFamily & BAG_FAMILY_KEYS))
+            if (slot >= KEYRING_SLOT_START && slot < KEYRING_SLOT_START + GetMaxKeyringSize() && !(pProto->BagFamily == BAG_FAMILY_KEYS))
                 { return EQUIP_ERR_ITEM_DOESNT_GO_INTO_BAG; }
 
             // prevent cheating
@@ -9269,7 +9268,7 @@ InventoryResult Player::_CanStoreItem(uint8 bag, uint8 slot, ItemPosCountVec& de
         if (bag == INVENTORY_SLOT_BAG_0)                    // inventory
         {
             // search free slot - keyring case
-            if (pProto->BagFamily & BAG_FAMILY_KEYS)
+            if (pProto->BagFamily == BAG_FAMILY_KEYS)
             {
                 uint32 keyringSize = GetMaxKeyringSize();
                 res = _CanStoreItem_InInventorySlots(KEYRING_SLOT_START, KEYRING_SLOT_START + keyringSize, dest, pProto, count, false, pItem, bag, slot);
@@ -10398,6 +10397,7 @@ Item* Player::EquipItem(uint16 pos, Item* pItem, bool update)
     uint8 slot = pos & 255;
 
     Item* pItem2 = GetItemByPos(bag, slot);
+
     if (!pItem2)
     {
         VisualizeItem(slot, pItem);
@@ -14686,7 +14686,7 @@ bool Player::LoadFromDB(ObjectGuid guid, SqlQueryHolder* holder)
         if (!MaNGOS::IsValidMapCoord(
                     GetPositionX() + transportPosition->x, GetPositionY() + transportPosition->y,
                     GetPositionZ() + transportPosition->z, GetOrientation() + transportPosition->o) ||
-                // transport size limited
+            // transport size limited
                 transportPosition->x > 50 || transportPosition->y > 50 || transportPosition->z > 50)
         {
             sLog.outError("%s have invalid transport coordinates (X: %f Y: %f Z: %f O: %f). Teleport to default race/class locations.",
@@ -16697,7 +16697,7 @@ void Player::_SaveQuestStatus()
     // we don't need transactions here.
     for (QuestStatusMap::iterator i = mQuestStatus.begin(); i != mQuestStatus.end(); ++i)
     {
-        QuestStatusData& questStatus = i->second;
+        QuestStatusData &questStatus = i->second;
         switch (questStatus.uState)
         {
             case QUEST_NEW :
@@ -19419,7 +19419,7 @@ float Player::GetReputationPriceDiscount(Creature const* pCreature) const
     if (!vendor_faction || !vendor_faction->faction)
         { return 1.0f; }
 
-    ReputationRank rank = GetReputationRank(vendor_faction->faction);
+    ReputationRank rank = GetReputationRank(vendor_faction->faction);   // get repution rank for that specific vendor faction
     if (rank <= REP_NEUTRAL)
         return 1.0f;
 

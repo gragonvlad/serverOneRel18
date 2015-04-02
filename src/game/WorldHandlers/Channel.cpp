@@ -117,6 +117,7 @@ void Channel::Join(Player* player, const char* password)
 
     MakeYouJoined(&data);
     SendToOne(&data, guid);
+
     JoinNotify(guid);
 
     // if no owner first logged will become
@@ -162,7 +163,7 @@ void Channel::Leave(Player* player, bool send)
         SendToAll(&data);
     }
 
-        LeaveNotify(guid);
+    LeaveNotify(guid);
 
     if (changeowner)
     {
@@ -582,7 +583,7 @@ void Channel::Say(Player* player, const char* text, uint32 lang)
             speakInWorldDef = true;
         }
         
-		// Not applicable for TBC onwards
+        // Not applicable for TBC onwards
         //HonorRankInfo honorInfo = plr->GetHonorRankInfo();
         ////We can speak in local defense if we're above this rank (see .h file)
         //if (honorInfo.rank >= SPEAK_IN_LOCALDEFENSE_RANK)

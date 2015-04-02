@@ -152,7 +152,7 @@ extern const uint32 LevelStartLoyalty[6];
 
 class Player;
 
-class  Pet : public Creature
+class Pet : public Creature
 {
     public:
         explicit Pet(PetType type = MAX_PET_TYPE);
@@ -181,18 +181,18 @@ class  Pet : public Creature
         uint32 GetPetAutoSpellOnPos(uint8 pos) const override
         {
             if (pos >= m_autospells.size())
-        { return 0; }
-    else
-        { return m_autospells[pos]; }
+                { return 0; }
+            else
+                { return m_autospells[pos]; }
         }
 
         bool CanSwim() const
         {
             Unit const* owner = GetOwner();
             if (owner)
-        { return owner->GetTypeId() == TYPEID_PLAYER ? true : ((Creature const*)owner)->CanSwim(); }
-        else
-            { return Creature::CanSwim(); }
+                { return owner->GetTypeId() == TYPEID_PLAYER ? true : ((Creature const*)owner)->CanSwim(); }
+            else
+                { return Creature::CanSwim(); }
         }
 
         bool CanFly() const { return false; } // pet are not able to fly. TODO: check if this is right

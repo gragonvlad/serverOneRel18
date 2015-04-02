@@ -2022,7 +2022,7 @@ void Pet::CastPetAuras(bool current)
 void Pet::CastOwnerTalentAuras()
 {
     if (!GetOwner() || GetOwner()->GetTypeId() != TYPEID_PLAYER)
-        return;
+        { return; }
 
     Player* pOwner = static_cast<Player*>(GetOwner());
 

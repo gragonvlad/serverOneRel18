@@ -9251,7 +9251,7 @@ void Unit::SetFeignDeath(bool apply, ObjectGuid casterGuid, uint32 /*spellID*/)
         if (GetTypeId() != TYPEID_PLAYER)
             { StopMoving(); }
         else
-            ((Player*)this)->m_movementInfo.SetMovementFlags(MOVEFLAG_NONE);
+            { ((Player*)this)->m_movementInfo.SetMovementFlags(MOVEFLAG_NONE); }
 
         // blizz like 2.0.x
         SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_UNK_29);

@@ -179,13 +179,13 @@ void WaypointMovementGenerator<Creature>::OnArrived(Creature& creature)
 void WaypointMovementGenerator<Creature>::StartMove(Creature& creature)
 {
     if (!i_path || i_path->empty())
-        return;
+        { return; }
 
     if (Stopped(creature))
-        return;
+        { return; }
 
     if (!creature.IsAlive() || creature.hasUnitState(UNIT_STAT_NOT_MOVE))
-        return;
+        { return; }
 
     WaypointPath::const_iterator currPoint = i_path->find(i_currentNode);
     MANGOS_ASSERT(currPoint != i_path->end());
@@ -193,7 +193,7 @@ void WaypointMovementGenerator<Creature>::StartMove(Creature& creature)
     if (WaypointBehavior* behavior = currPoint->second.behavior)
     {
         if (behavior->model2 != 0)
-            creature.SetDisplayId(behavior->model2);
+            { creature.SetDisplayId(behavior->model2); }
         creature.SetUInt32Value(UNIT_NPC_EMOTESTATE, 0);
     }
 
@@ -289,12 +289,12 @@ bool WaypointMovementGenerator<Creature>::GetResetPosition(Creature&, float& x, 
 {
     // prevent a crash at empty waypoint path.
     if (!i_path || i_path->empty())
-        return false;
+        { return false; }
 
     WaypointPath::const_iterator lastPoint = i_path->find(m_lastReachedWaypoint);
     // Special case: Before the first waypoint is reached, m_lastReachedWaypoint is set to 0 (which may not be contained in i_path)
     if (!m_lastReachedWaypoint && lastPoint == i_path->end())
-        return false;
+        { return false; }
 
     MANGOS_ASSERT(lastPoint != i_path->end());
 

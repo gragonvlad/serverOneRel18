@@ -473,7 +473,7 @@ inline bool IsNeedCastSpellAtFormApply(SpellEntry const* spellInfo, ShapeshiftFo
     // passive spells with SPELL_ATTR_EX2_NOT_NEED_SHAPESHIFT are already active without shapeshift, do no recast!
     return (spellInfo->Stances & (1 << (form - 1)) && !spellInfo->HasAttribute(SPELL_ATTR_EX2_NOT_NEED_SHAPESHIFT));
 }
- 
+
 inline bool IsNeedCastSpellAtOutdoor(SpellEntry const* spellInfo)
 {
     return (spellInfo->HasAttribute(SPELL_ATTR_OUTDOORS_ONLY) && spellInfo->HasAttribute(SPELL_ATTR_PASSIVE));
@@ -668,9 +668,9 @@ struct SpellProcEventEntry
 
 struct SpellBonusEntry
 {
-    float  direct_damage;
-    float  dot_damage;
-    float  ap_bonus;
+    float  direct_damage;                                   // Direct Damage Spell Bonus Coeff
+    float  dot_damage;                                        // Dot Damage Spell Bonus Coeff
+    float  ap_bonus;                                        // ??
     float  ap_dot_bonus;
 };
 

@@ -254,7 +254,7 @@ void Creature::RemoveCorpse()
         GetMap()->GetCreatureLinkingHolder()->DoCreatureLinkingEvent(LINKING_EVENT_DESPAWN, this);
 
     if (InstanceData* mapInstance = GetInstanceData())
-        mapInstance->OnCreatureDespawn(this);
+        { mapInstance->OnCreatureDespawn(this); }
 
     // script can set time (in seconds) explicit, override the original
     if (respawnDelay)
