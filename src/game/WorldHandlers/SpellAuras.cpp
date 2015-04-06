@@ -2711,6 +2711,9 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
     Powers PowerType = POWER_MANA;
     Unit* target = GetTarget();
 
+    // remove SPELL_AURA_EMPATHY
+    target->RemoveSpellsCausingAura(SPELL_AURA_EMPATHY);
+
     if (ssEntry->modelID_A)
     {
         // i will asume that creatures will always take the defined model from the dbc
@@ -2773,6 +2776,13 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
             // and polymorphic affects
             if (target->IsPolymorphed())
                 { target->RemoveAurasDueToSpell(target->GetTransform()); }
+
+            //no break here
+        }
+        case FORM_GHOSTWOLF:
+        {
+            // remove water walk aura. TODO:: there is probably better way to do this
+            target->RemoveSpellsCausingAura(SPELL_AURA_WATER_WALK);
 
             break;
         }
