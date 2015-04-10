@@ -3126,10 +3126,6 @@ bool ChatHandler::HandleWpModifyCommand(char* args)
  *
  * info -> User has selected a visual waypoint before
  *
- * info <GUID> <WPNUM> -> User did not select a visual waypoint and
- *                        provided the GUID of the NPC and the number of
- *                        the waypoint.
- *
  * on -> User has selected an NPC; all visual waypoints for this
  *       NPC are added to the world
  *
@@ -3139,12 +3135,6 @@ bool ChatHandler::HandleWpModifyCommand(char* args)
  *
  * off -> User has selected an NPC; all visual waypoints for this
  *        NPC are removed from the world.
- *
- * on <GUID> -> User did not select an NPC - instead the GUID of the
- *              NPC is provided. All visual waypoints for this NPC
- *              are removed from the world.
- *
- *
  */
 bool ChatHandler::HandleWpShowCommand(char* args)
 {

@@ -206,6 +206,8 @@ bool GameObject::Create(uint32 guidlow, uint32 name_id, Map* map, float x, float
         case GAMEOBJECT_TYPE_CHEST:
             RollIfMineralVein();
             break;
+        default:
+            break;
     }
 
     // Used by Eluna
