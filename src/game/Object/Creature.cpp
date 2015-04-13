@@ -2722,9 +2722,9 @@ void Creature::SetWalk(bool enable, bool asDefault)
 void Creature::SetLevitate(bool enable)
 {
     if (enable)
-        { m_movementInfo.AddMovementFlag(MOVEFLAG_LEVITATE); }
+        { m_movementInfo.AddMovementFlag(MOVEFLAG_LEVITATING); }
     else
-        { m_movementInfo.RemoveMovementFlag(MOVEFLAG_LEVITATE); }
+        { m_movementInfo.RemoveMovementFlag(MOVEFLAG_LEVITATING); }
 
     // TODO: there should be analogic opcode for 2.43
     // WorldPacket data(enable ? SMSG_SPLINE_MOVE_GRAVITY_DISABLE : SMSG_SPLINE_MOVE_GRAVITY_ENABLE, 9);
@@ -2783,9 +2783,9 @@ void Creature::SetHover(bool enable)
 void Creature::SetRoot(bool enable)
 {
     if (enable)
-        { m_movementInfo.AddMovementFlag(MOVEFLAG_IMMOBILIZED); }
+        { m_movementInfo.AddMovementFlag(MOVEFLAG_ROOT); }
     else
-        { m_movementInfo.RemoveMovementFlag(MOVEFLAG_IMMOBILIZED); }
+        { m_movementInfo.RemoveMovementFlag(MOVEFLAG_ROOT); }
 
     WorldPacket data(enable ? SMSG_SPLINE_MOVE_ROOT : SMSG_SPLINE_MOVE_UNROOT, 9);
     data << GetPackGUID();
