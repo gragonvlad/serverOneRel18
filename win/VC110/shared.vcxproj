@@ -114,7 +114,7 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\%40Mangos\Repos\serverOne\src\shared\revision.h" />
+    <ClInclude Include="..\..\src\shared\revision.h" />
     <ClInclude Include="..\..\dep\include\mersennetwister\MersenneTwister.h" />
     <ClInclude Include="..\..\src\shared\Auth\AuthCrypt.h" />
     <ClInclude Include="..\..\src\shared\Auth\BigNumber.h" />
