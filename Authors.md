@@ -34,8 +34,9 @@ For Authors prior to Release 0.19, please see the file [Historic Authors](Author
 
 * 249CAAFE40
 * Andrewmunro
-* Antzmangos
+* Antzmangos/billy1arm
 * Boxa
+* cabfever
 * cala
 * Chuck5ta
 * Cyberium
@@ -59,6 +60,7 @@ For Authors prior to Release 0.19, please see the file [Historic Authors](Author
 * Neo2003
 * Neotmiren
 * Nymph2013
+* olion17
 * Patman64
 * Rage311
 * Rochet2

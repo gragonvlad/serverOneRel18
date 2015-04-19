@@ -24,8 +24,8 @@
 
 #ifndef MANGOS_H_REVISION
 #define MANGOS_H_REVISION
-#define REVISION_NR "20000"
+#define REVISION_NR "20002"
 #define REVISION_DB_CHARACTERS "required_20001_02_dbdocs_Update"
-#define REVISION_DB_MANGOS "required_20000_29_creature_equip_template"
-#define REVISION_DB_REALMD "required_20140607_Realm_Resync"
+#define REVISION_DB_MANGOS "required_20000_30_start_up_error_fixes"
+#define REVISION_DB_REALMD "required_20150409_Playerbot_and_Warden"
 #endif // __REVISION_H__

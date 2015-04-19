@@ -53,8 +53,8 @@ then
 else
     ## do some questioning!
     DisplayHeader
-    echo   "  Welcome to the MaNGOS One Extraction helper script !"
-    echo "========================================================"
+    echo "  Welcome to the MaNGOS Data Extraction helper script !"
+    echo "========================================================="
     echo
     echo "Should all data (dbc, maps, vmaps and mmaps be extracted ?"
     echo "(Selecting n will give you the option to pick each step) (y/n):"

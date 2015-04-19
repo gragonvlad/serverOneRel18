@@ -114,6 +114,7 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\%40Mangos\Repos\serverOne\src\shared\revision.h" />
     <ClInclude Include="..\..\dep\include\mersennetwister\MersenneTwister.h" />
     <ClInclude Include="..\..\src\shared\Auth\AuthCrypt.h" />
     <ClInclude Include="..\..\src\shared\Auth\BigNumber.h" />
@@ -144,8 +145,6 @@
     <ClInclude Include="..\..\src\shared\WorldPacket.h" />
     <ClInclude Include="..\..\src\shared\Common.h" />
     <ClInclude Include="..\..\src\shared\LockedQueue.h" />
-    <ClInclude Include="..\..\src\shared\revision_nr.h" />
-    <ClInclude Include="..\..\src\shared\revision_sql.h" />
     <ClInclude Include="..\..\src\shared\Threading.h" />
     <ClInclude Include="..\..\src\shared\ServiceWin32.h" />
   </ItemGroup>
